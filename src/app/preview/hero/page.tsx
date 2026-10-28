@@ -1,5 +1,5 @@
 import { Instrument_Sans } from "next/font/google";
-import { IlluminatedHero } from "@/blocks/illuminated-hero";
+import { IlluminatedHero } from "@/registry/veyl/illuminated-hero";
 
 const sans = Instrument_Sans({
   subsets: ["latin"],
