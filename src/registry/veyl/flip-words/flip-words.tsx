@@ -14,23 +14,25 @@ export type FlipWordsProps = {
 };
 
 export function FlipWords({ words, duration = 3000, className }: FlipWordsProps) {
-  const [currentWord, setCurrentWord] = useState(words[0]);
+  const [wordIndex, setWordIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
   const startAnimation = useCallback(() => {
-    const word = words[(words.indexOf(currentWord) + 1) % words.length];
-    setCurrentWord(word);
+    setWordIndex((i) => (i + 1) % words.length);
     setIsAnimating(true);
-  }, [currentWord, words]);
+  }, [words.length]);
 
   useEffect(() => {
-    if (!isAnimating) {
+    if (!isAnimating && words.length > 0) {
       const timer = setTimeout(() => {
         startAnimation();
       }, duration);
       return () => clearTimeout(timer);
     }
-  }, [isAnimating, duration, startAnimation]);
+  }, [isAnimating, duration, startAnimation, words.length]);
+
+  if (words.length === 0) return null;
+  const currentWord = words[wordIndex % words.length];
 
   return (
     <AnimatePresence
@@ -56,11 +58,11 @@ export function FlipWords({ words, duration = 3000, className }: FlipWordsProps)
           "z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2 [perspective:1000px]",
           className,
         )}
-        key={currentWord}
+        key={wordIndex}
       >
         {currentWord.split("").map((letter, index) => (
           <motion.span
-            key={currentWord + index}
+            key={`${wordIndex}-${index}`}
             initial={{ rotateX: 0, opacity: 0 }}
             animate={{ rotateX: 360, opacity: 1 }}
             exit={{ rotateX: 360, opacity: 0 }}
