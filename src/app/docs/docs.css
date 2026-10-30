@@ -1,0 +1,24 @@
+/* Docs-only styles. Imported by app/docs/layout.tsx, so nothing here affects other pages. */
+
+/* Code colours: shiki writes both a light and a dark colour on every token. */
+.docs-code .shiki,
+.docs-code .shiki span {
+  color: var(--shiki-light);
+  background-color: transparent;
+}
+.dark .docs-code .shiki,
+.dark .docs-code .shiki span {
+  color: var(--shiki-dark);
+}
+.docs-code pre {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.7;
+  tab-size: 2;
+  background: transparent !important;
+}
+.docs-code code {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

@@ -38,7 +38,7 @@ function useLoop(duration: number, enabled: boolean, hold = 0.15) {
     let frame = 0;
     const start = performance.now();
     const tick = (now: number) => {
-      const raw = ((now - start) % duration) / duration;
+      const raw = (Math.max(0, now - start) % duration) / duration;
       setValue(Math.min(1, raw / (1 - hold)));
       frame = requestAnimationFrame(tick);
     };
@@ -285,7 +285,10 @@ const JOURNEY = [
 export function FreshnessTracker({ className }: SkeletonProps) {
   const animate = useAnimate();
   const p = useLoop(10000, animate);
-  const current = Math.min(JOURNEY.length - 1, Math.floor(p * JOURNEY.length));
+  const current = Math.max(
+    0,
+    Math.min(JOURNEY.length - 1, Math.floor(p * JOURNEY.length)),
+  );
 
   return (
     <div className={cn("flex h-full w-full items-end", className)}>
