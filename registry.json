@@ -1,0 +1,45 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "veyl",
+  "homepage": "https://github.com/veyl-ui/veyl",
+  "items": [
+    {
+      "name": "flip-words",
+      "type": "registry:component",
+      "title": "Flip Words",
+      "description": "A word that turns letter by letter through 360 degrees, then gives way to the next word.",
+      "dependencies": ["motion"],
+      "registryDependencies": ["utils"],
+      "files": [
+        { "path": "src/registry/veyl/flip-words/flip-words.tsx", "type": "registry:component", "target": "@components/veyl/flip-words/flip-words.tsx" },
+        { "path": "src/registry/veyl/flip-words/flip-words.css", "type": "registry:component", "target": "@components/veyl/flip-words/flip-words.css" },
+        { "path": "src/registry/veyl/flip-words/index.ts", "type": "registry:component", "target": "@components/veyl/flip-words/index.ts" }
+      ]
+    },
+    {
+      "name": "illuminated-hero",
+      "type": "registry:block",
+      "title": "Illuminated Hero",
+      "description": "A dark hero section with two glowing circles and a headline whose middle line glows.",
+      "files": [
+        { "path": "src/registry/veyl/illuminated-hero/illuminated-hero.tsx", "type": "registry:component", "target": "@components/veyl/illuminated-hero/illuminated-hero.tsx" },
+        { "path": "src/registry/veyl/illuminated-hero/illuminated-hero.css", "type": "registry:component", "target": "@components/veyl/illuminated-hero/illuminated-hero.css" },
+        { "path": "src/registry/veyl/illuminated-hero/use-fit-layout.ts", "type": "registry:component", "target": "@components/veyl/illuminated-hero/use-fit-layout.ts" },
+        { "path": "src/registry/veyl/illuminated-hero/index.ts", "type": "registry:component", "target": "@components/veyl/illuminated-hero/index.ts" }
+      ]
+    },
+    {
+      "name": "bento-grid",
+      "type": "registry:block",
+      "title": "Bento Grid",
+      "description": "A five-card grid of photo cards, each holding a small animated panel.",
+      "dependencies": ["motion"],
+      "registryDependencies": ["utils"],
+      "files": [
+        { "path": "src/registry/veyl/bento-grid/bento-grid.tsx", "type": "registry:component", "target": "@components/veyl/bento-grid/bento-grid.tsx" },
+        { "path": "src/registry/veyl/bento-grid/skeletons.tsx", "type": "registry:component", "target": "@components/veyl/bento-grid/skeletons.tsx" },
+        { "path": "src/registry/veyl/bento-grid/index.ts", "type": "registry:component", "target": "@components/veyl/bento-grid/index.ts" }
+      ]
+    }
+  ]
+}
