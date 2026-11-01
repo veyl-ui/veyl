@@ -18,9 +18,11 @@ import {
 import { InstallCommand } from "@/components/docs/install-command";
 import { PropsTable } from "@/components/docs/props-table";
 import { componentDocs, getDoc } from "@/lib/docs/components";
+import { registryUrl } from "@/lib/docs/site";
 import { highlight, langOf, readSource } from "@/lib/docs/source";
 
 type Params = { slug: string };
+
 
 export function generateStaticParams(): Params[] {
   return componentDocs.map((doc) => ({ slug: doc.slug }));
@@ -69,6 +71,14 @@ export default async function ComponentPage({ params }: { params: Promise<Params
       </ComponentPreview>
 
       <Section id="installation" title="Installation">
+        <h3 className="font-medium text-neutral-900 dark:text-neutral-100">With the CLI</h3>
+        <P>
+          One command copies the files into <Code>components/veyl/{doc.slug}/</Code> and installs
+          the packages for you. It needs a project set up with shadcn (a{" "}
+          <Code>components.json</Code> file).
+        </P>
+        <CodeBlock lang="bash" code={`npx shadcn@latest add ${registryUrl(doc.slug)}`} />
+        <h3 className="pt-4 font-medium text-neutral-900 dark:text-neutral-100">Manually</h3>
         <Steps>
           <Step number={++step} title="Install the packages">
             {doc.dependencies.length > 0 ? (
