@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { cn } from "@/lib/utils";
+import "./flip-words.css";
 
 export type FlipWordsProps = {
   /** The words to cycle through, in order. */
@@ -55,7 +56,7 @@ export function FlipWords({ words, duration = 3000, className }: FlipWordsProps)
           duration: 0.2,
         }}
         className={cn(
-          "z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2 [perspective:1000px]",
+          "flip-words-container z-10 inline-block relative text-left text-neutral-900 dark:text-neutral-100 px-2 [perspective:1000px]",
           className,
         )}
         key={wordIndex}
