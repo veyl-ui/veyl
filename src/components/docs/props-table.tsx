@@ -1,13 +1,13 @@
 import type { PropRow } from "@/lib/docs/components";
 
 const code =
-  "rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[12.5px] text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200";
+  "rounded bg-muted px-1.5 py-0.5 font-mono text-[12.5px] text-foreground";
 
 export function PropsTable({ rows }: { rows: PropRow[] }) {
   return (
-    <div className="overflow-x-auto rounded-md border border-neutral-200 dark:border-neutral-800">
+    <div className="overflow-x-auto rounded-md border border-border">
       <table className="w-full min-w-[34rem] text-left text-sm">
-        <thead className="border-b border-neutral-200 bg-neutral-50 text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-400">
+        <thead className="border-b border-border bg-surface text-muted-foreground">
           <tr>
             <th className="px-4 py-2.5 font-medium">Prop</th>
             <th className="px-4 py-2.5 font-medium">Type</th>
@@ -15,7 +15,7 @@ export function PropsTable({ rows }: { rows: PropRow[] }) {
             <th className="px-4 py-2.5 font-medium">What it does</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800">
+        <tbody className="divide-y divide-border">
           {rows.map((row) => (
             <tr key={row.name} className="align-top">
               <td className="px-4 py-3">
@@ -24,10 +24,10 @@ export function PropsTable({ rows }: { rows: PropRow[] }) {
               <td className="px-4 py-3">
                 <code className={code}>{row.type}</code>
               </td>
-              <td className="px-4 py-3 text-neutral-500 dark:text-neutral-400">
+              <td className="px-4 py-3 text-muted-foreground">
                 {row.default ?? "None"}
               </td>
-              <td className="px-4 py-3 text-neutral-600 dark:text-neutral-300">
+              <td className="px-4 py-3 text-muted-foreground">
                 {row.description}
               </td>
             </tr>

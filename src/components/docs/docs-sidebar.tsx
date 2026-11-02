@@ -12,7 +12,7 @@ export function DocsSidebar({ onNavigate }: { onNavigate?: () => void }) {
     <nav aria-label="Documentation" className="space-y-7 text-sm">
       {navGroups.map((group) => (
         <div key={group.title}>
-          <p className="mb-2 px-2.5 font-medium text-neutral-900 dark:text-neutral-100">
+          <p className="mb-2 px-2.5 font-medium text-foreground">
             {group.title}
           </p>
           <ul className="space-y-0.5">
@@ -25,15 +25,15 @@ export function DocsSidebar({ onNavigate }: { onNavigate?: () => void }) {
                     onClick={onNavigate}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "flex items-center justify-between rounded-md px-2.5 py-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:focus-visible:outline-neutral-100",
+                      "flex items-center justify-between rounded-md px-2.5 py-1.5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                       active
-                        ? "bg-neutral-100 font-medium text-neutral-900 dark:bg-neutral-900 dark:text-neutral-100"
-                        : "text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-900/60 dark:hover:text-neutral-100",
+                        ? "bg-muted font-medium text-foreground shadow-[inset_2px_0_0_var(--brand)]"
+                        : "text-muted-foreground hover:bg-accent hover:text-foreground",
                     )}
                   >
                     {item.title}
                     {item.hint ? (
-                      <span className="text-xs font-normal text-neutral-400 dark:text-neutral-500">
+                      <span className="text-xs font-normal text-muted-foreground/70">
                         {item.hint}
                       </span>
                     ) : null}

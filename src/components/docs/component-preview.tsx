@@ -34,7 +34,7 @@ export function ComponentPreview({ children, files, height, centered = false }: 
       <div
         role="tablist"
         aria-label="Preview or code"
-        className="inline-flex rounded-md bg-neutral-100 p-0.5 text-sm dark:bg-neutral-900"
+        className="inline-flex rounded-md bg-muted p-0.5 text-sm"
       >
         {(["preview", "code"] as const).map((id) => (
           <button
@@ -44,10 +44,10 @@ export function ComponentPreview({ children, files, height, centered = false }: 
             aria-selected={tab === id}
             onClick={() => setTab(id)}
             className={cn(
-              "rounded-[5px] px-3.5 py-1.5 font-medium capitalize transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:focus-visible:outline-neutral-100",
+              "rounded-[5px] px-3.5 py-1.5 font-medium capitalize transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
               tab === id
-                ? "bg-white text-neutral-900 shadow-sm dark:bg-neutral-800 dark:text-neutral-100"
-                : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100",
+                ? "bg-background text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
             {id}
@@ -58,12 +58,12 @@ export function ComponentPreview({ children, files, height, centered = false }: 
       {tab === "preview" ? (
         <div
           role="tabpanel"
-          className="mt-3 rounded-md border border-neutral-200 bg-neutral-100 p-3 dark:border-neutral-800 dark:bg-neutral-900"
+          className="mt-3 rounded-md border border-border bg-muted p-3"
         >
           <div
             style={{ height }}
             className={cn(
-              "relative overflow-hidden rounded-md bg-white shadow-sm dark:bg-black",
+              "relative overflow-hidden rounded-md bg-stage shadow-sm",
               centered && "flex items-center justify-center p-6",
             )}
           >
@@ -73,9 +73,9 @@ export function ComponentPreview({ children, files, height, centered = false }: 
       ) : (
         <div
           role="tabpanel"
-          className="mt-3 overflow-hidden rounded-md border border-neutral-200 dark:border-neutral-800"
+          className="mt-3 overflow-hidden rounded-md border border-border"
         >
-          <div className="flex items-center justify-between gap-2 border-b border-neutral-200 bg-neutral-50 px-2 py-2 dark:border-neutral-800 dark:bg-neutral-900/60">
+          <div className="flex items-center justify-between gap-2 border-b border-border bg-surface px-2 py-2">
             <div className="flex min-w-0 gap-1 overflow-x-auto">
               {files.map((f, i) => (
                 <button
@@ -84,10 +84,10 @@ export function ComponentPreview({ children, files, height, centered = false }: 
                   onClick={() => setFileIndex(i)}
                   aria-pressed={i === fileIndex}
                   className={cn(
-                    "shrink-0 rounded-md px-2.5 py-1 font-mono text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:focus-visible:outline-neutral-100",
+                    "shrink-0 rounded-md px-2.5 py-1 font-mono text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
                     i === fileIndex
-                      ? "bg-white text-neutral-900 shadow-sm dark:bg-neutral-800 dark:text-neutral-100"
-                      : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100",
+                      ? "bg-background text-foreground shadow-sm"
+                      : "text-muted-foreground hover:text-foreground",
                   )}
                 >
                   {f.name}
@@ -97,7 +97,7 @@ export function ComponentPreview({ children, files, height, centered = false }: 
             <CopyButton text={file.code} />
           </div>
           <div
-            className="docs-code max-h-[32rem] overflow-auto bg-neutral-50 dark:bg-neutral-900/60"
+            className="docs-code max-h-[32rem] overflow-auto bg-surface"
             dangerouslySetInnerHTML={{ __html: file.html }}
           />
         </div>

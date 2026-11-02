@@ -71,14 +71,14 @@ export default async function ComponentPage({ params }: { params: Promise<Params
       </ComponentPreview>
 
       <Section id="installation" title="Installation">
-        <h3 className="font-medium text-neutral-900 dark:text-neutral-100">With the CLI</h3>
+        <h3 className="font-medium text-foreground">With the CLI</h3>
         <P>
           One command copies the files into <Code>components/veyl/{doc.slug}/</Code> and installs
           the packages for you. It needs a project set up with shadcn (a{" "}
           <Code>components.json</Code> file).
         </P>
         <CodeBlock lang="bash" code={`npx shadcn@latest add ${registryUrl(doc.slug)}`} />
-        <h3 className="pt-4 font-medium text-neutral-900 dark:text-neutral-100">Manually</h3>
+        <h3 className="pt-4 font-medium text-foreground">Manually</h3>
         <Steps>
           <Step number={++step} title="Install the packages">
             {doc.dependencies.length > 0 ? (
@@ -95,7 +95,7 @@ export default async function ComponentPage({ params }: { params: Promise<Params
                 project does not have it yet, see the{" "}
                 <a
                   href="/docs/installation"
-                  className="font-medium text-neutral-900 underline underline-offset-4 dark:text-neutral-100"
+                  className="font-medium text-foreground underline decoration-brand underline-offset-4"
                 >
                   installation guide
                 </a>
@@ -134,7 +134,7 @@ export default async function ComponentPage({ params }: { params: Promise<Params
         {doc.props.map((group) => (
           <div key={group.title} className="space-y-3">
             {doc.props.length > 1 ? (
-              <h3 className="font-medium text-neutral-900 dark:text-neutral-100">{group.title}</h3>
+              <h3 className="font-medium text-foreground">{group.title}</h3>
             ) : null}
             <PropsTable rows={group.rows} />
           </div>
@@ -149,9 +149,9 @@ export default async function ComponentPage({ params }: { params: Promise<Params
       </Section>
 
       <Section id="notes" title="Good to know">
-        <ul className="list-disc space-y-2 pl-5 marker:text-neutral-400">
+        <ul className="list-disc space-y-2 pl-5 marker:text-muted-foreground">
           {doc.notes.map((note) => (
-            <li key={note} className="leading-7 text-neutral-600 dark:text-neutral-400">
+            <li key={note} className="leading-7 text-muted-foreground">
               {note}
             </li>
           ))}
@@ -162,7 +162,7 @@ export default async function ComponentPage({ params }: { params: Promise<Params
             href="https://github.com/veyl-ui/veyl/issues"
             target="_blank"
             rel="noreferrer"
-            className="font-medium text-neutral-900 underline underline-offset-4 dark:text-neutral-100"
+            className="font-medium text-foreground underline decoration-brand underline-offset-4"
           >
             GitHub
           </a>
