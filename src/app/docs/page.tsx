@@ -40,10 +40,10 @@ export default function IntroductionPage() {
           {principles.map((item) => (
             <div
               key={item.title}
-              className="rounded-md border border-neutral-200 p-4 dark:border-neutral-800"
+              className="rounded-md border border-border p-4"
             >
-              <h3 className="font-medium text-neutral-900 dark:text-neutral-100">{item.title}</h3>
-              <p className="mt-2 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+              <h3 className="font-medium text-foreground">{item.title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 {item.text}
               </p>
             </div>
@@ -57,18 +57,18 @@ export default function IntroductionPage() {
             <Link
               key={doc.slug}
               href={`/docs/components/${doc.slug}`}
-              className="group rounded-md border border-neutral-200 p-4 transition-colors hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:border-neutral-800 dark:hover:bg-neutral-900/60 dark:focus-visible:outline-neutral-100"
+              className="group rounded-md border border-border p-4 transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               <div className="flex items-center justify-between">
-                <h3 className="font-medium text-neutral-900 dark:text-neutral-100">{doc.title}</h3>
-                <span className="rounded-full border border-neutral-200 px-2 py-0.5 text-xs text-neutral-500 dark:border-neutral-800 dark:text-neutral-400">
+                <h3 className="font-medium text-foreground">{doc.title}</h3>
+                <span className="rounded-full border border-border px-2 py-0.5 text-xs text-muted-foreground">
                   {doc.kind}
                 </span>
               </div>
-              <p className="mt-2 line-clamp-3 text-sm leading-6 text-neutral-600 dark:text-neutral-400">
+              <p className="mt-2 line-clamp-3 text-sm leading-6 text-muted-foreground">
                 {doc.description}
               </p>
-              <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900 dark:text-neutral-100">
+              <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-foreground">
                 View
                 <ArrowRightIcon
                   width={14}
@@ -83,7 +83,7 @@ export default function IntroductionPage() {
 
       <Section id="start" title="Start here">
         <P>
-          New to Veyl? Follow the <Link className="font-medium text-neutral-900 underline underline-offset-4 dark:text-neutral-100" href="/docs/installation">installation guide</Link> once
+          New to Veyl? Follow the <Link className="font-medium text-foreground underline decoration-brand underline-offset-4" href="/docs/installation">installation guide</Link> once
           to set up your project. After that, adding a component takes three steps: install its
           packages, copy its files, and use it.
         </P>

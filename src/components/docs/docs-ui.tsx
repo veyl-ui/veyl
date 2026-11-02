@@ -8,10 +8,10 @@ import { ArrowLeftIcon, ArrowRightIcon } from "./icons";
 export function PageTitle({ title, description }: { title: string; description: string }) {
   return (
     <header>
-      <h1 className="text-3xl font-semibold tracking-tight text-neutral-900 sm:text-4xl dark:text-neutral-50">
+      <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
         {title}
       </h1>
-      <p className="mt-3 max-w-2xl text-base leading-7 text-neutral-600 dark:text-neutral-400">
+      <p className="mt-3 max-w-2xl text-base leading-7 text-muted-foreground">
         {description}
       </p>
     </header>
@@ -29,7 +29,7 @@ export function Section({
 }) {
   return (
     <section id={id} className="mt-14 scroll-mt-24">
-      <h2 className="border-b border-neutral-200 pb-2 text-xl font-semibold tracking-tight text-neutral-900 dark:border-neutral-800 dark:text-neutral-50">
+      <h2 className="border-b border-border pb-2 text-xl font-semibold tracking-tight text-foreground">
         {title}
       </h2>
       <div className="mt-5 space-y-4">{children}</div>
@@ -38,12 +38,12 @@ export function Section({
 }
 
 export function P({ children }: { children: ReactNode }) {
-  return <p className="leading-7 text-neutral-600 dark:text-neutral-400">{children}</p>;
+  return <p className="leading-7 text-muted-foreground">{children}</p>;
 }
 
 export function Code({ children }: { children: ReactNode }) {
   return (
-    <code className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.85em] text-neutral-800 dark:bg-neutral-800 dark:text-neutral-200">
+    <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
       {children}
     </code>
   );
@@ -67,12 +67,12 @@ export function Step({
     <li className="grid grid-cols-[1.75rem_1fr] gap-x-4">
       <span
         aria-hidden="true"
-        className="mt-0.5 grid h-7 w-7 place-items-center rounded-full border border-neutral-200 text-xs font-medium text-neutral-600 dark:border-neutral-800 dark:text-neutral-400"
+        className="mt-0.5 grid h-7 w-7 place-items-center rounded-full bg-brand-soft text-xs font-semibold text-brand-ink"
       >
         {number}
       </span>
       <div className="min-w-0 space-y-3">
-        <h3 className="pt-0.5 font-medium text-neutral-900 dark:text-neutral-100">{title}</h3>
+        <h3 className="pt-0.5 font-medium text-foreground">{title}</h3>
         {children}
       </div>
     </li>
@@ -81,7 +81,7 @@ export function Step({
 
 export function Callout({ children }: { children: ReactNode }) {
   return (
-    <div className="rounded-md border border-neutral-200 bg-neutral-50 px-4 py-3 text-sm leading-6 text-neutral-600 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-400">
+    <div className="rounded-md border border-border bg-surface px-4 py-3 text-sm leading-6 text-muted-foreground">
       {children}
     </div>
   );
@@ -95,19 +95,19 @@ export function SimpleTable({
   rows: [ReactNode, ReactNode][];
 }) {
   return (
-    <div className="overflow-x-auto rounded-md border border-neutral-200 dark:border-neutral-800">
+    <div className="overflow-x-auto rounded-md border border-border">
       <table className="w-full min-w-[28rem] text-left text-sm">
-        <thead className="border-b border-neutral-200 bg-neutral-50 text-neutral-500 dark:border-neutral-800 dark:bg-neutral-900/60 dark:text-neutral-400">
+        <thead className="border-b border-border bg-surface text-muted-foreground">
           <tr>
             <th className="w-40 px-4 py-2.5 font-medium">{head[0]}</th>
             <th className="px-4 py-2.5 font-medium">{head[1]}</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-neutral-200 dark:divide-neutral-800">
+        <tbody className="divide-y divide-border">
           {rows.map(([a, b], i) => (
             <tr key={i} className="align-top">
-              <td className="px-4 py-3 font-medium text-neutral-900 dark:text-neutral-100">{a}</td>
-              <td className="px-4 py-3 text-neutral-600 dark:text-neutral-300">{b}</td>
+              <td className="px-4 py-3 font-medium text-foreground">{a}</td>
+              <td className="px-4 py-3 text-muted-foreground">{b}</td>
             </tr>
           ))}
         </tbody>
@@ -130,13 +130,13 @@ export function DocsPage({
       {toc.length > 0 ? (
         <aside className="hidden w-48 shrink-0 2xl:block">
           <nav aria-label="On this page" className="sticky top-24 text-sm">
-            <p className="mb-3 font-medium text-neutral-900 dark:text-neutral-100">On this page</p>
-            <ul className="space-y-2 border-l border-neutral-200 dark:border-neutral-800">
+            <p className="mb-3 font-medium text-foreground">On this page</p>
+            <ul className="space-y-2 border-l border-border">
               {toc.map((item) => (
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="-ml-px block border-l border-transparent pl-4 text-neutral-500 transition-colors hover:border-neutral-900 hover:text-neutral-900 dark:text-neutral-400 dark:hover:border-neutral-100 dark:hover:text-neutral-100"
+                    className="-ml-px block border-l border-transparent pl-4 text-muted-foreground transition-colors hover:border-brand hover:text-foreground"
                   >
                     {item.title}
                   </a>
@@ -154,26 +154,26 @@ export function DocsPage({
 export function Pager({ href }: { href: string }) {
   const { prev, next } = getNeighbours(href);
   const card =
-    "group flex flex-1 flex-col gap-1 rounded-md border border-neutral-200 px-4 py-3 text-sm transition-colors hover:bg-neutral-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:border-neutral-800 dark:hover:bg-neutral-900/60 dark:focus-visible:outline-neutral-100";
+    "group flex flex-1 flex-col gap-1 rounded-md border border-border px-4 py-3 text-sm transition-colors hover:bg-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
 
   return (
-    <nav aria-label="Pagination" className="mt-16 flex gap-3 border-t border-neutral-200 pt-8 dark:border-neutral-800">
+    <nav aria-label="Pagination" className="mt-16 flex gap-3 border-t border-border pt-8">
       {prev ? (
         <Link href={prev.href} className={card}>
-          <span className="flex items-center gap-1.5 text-neutral-500 dark:text-neutral-400">
+          <span className="flex items-center gap-1.5 text-muted-foreground">
             <ArrowLeftIcon width={14} height={14} /> Previous
           </span>
-          <span className="font-medium text-neutral-900 dark:text-neutral-100">{prev.title}</span>
+          <span className="font-medium text-foreground">{prev.title}</span>
         </Link>
       ) : (
         <span className="flex-1" />
       )}
       {next ? (
         <Link href={next.href} className={`${card} items-end text-right`}>
-          <span className="flex items-center gap-1.5 text-neutral-500 dark:text-neutral-400">
+          <span className="flex items-center gap-1.5 text-muted-foreground">
             Next <ArrowRightIcon width={14} height={14} />
           </span>
-          <span className="font-medium text-neutral-900 dark:text-neutral-100">{next.title}</span>
+          <span className="font-medium text-foreground">{next.title}</span>
         </Link>
       ) : (
         <span className="flex-1" />

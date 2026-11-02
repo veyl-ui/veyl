@@ -27,7 +27,7 @@ export function CopyButton({ text, className }: { text: string; className?: stri
       onClick={copy}
       aria-label={copied ? "Copied" : "Copy code"}
       className={cn(
-        "grid h-8 w-8 place-items-center rounded-md border border-neutral-200 bg-white text-neutral-500 transition-colors hover:text-neutral-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900 dark:border-neutral-800 dark:bg-neutral-950 dark:text-neutral-400 dark:hover:text-neutral-100 dark:focus-visible:outline-neutral-100",
+        "grid h-8 w-8 place-items-center rounded-md border border-border bg-background text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
         className,
       )}
     >

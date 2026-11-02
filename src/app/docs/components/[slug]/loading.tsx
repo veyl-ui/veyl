@@ -4,7 +4,7 @@
  * instant when `cacheComponents` is on.
  */
 export default function Loading() {
-  const bar = "rounded-md bg-neutral-100 dark:bg-neutral-900 motion-safe:animate-pulse";
+  const bar = "rounded-md bg-muted motion-safe:animate-pulse";
   return (
     <div className="space-y-6" aria-busy="true" aria-label="Loading">
       <div className={`${bar} h-9 w-56`} />

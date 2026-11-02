@@ -165,19 +165,13 @@ export default function Page() {
     dependencies: ["motion", "clsx", "tailwind-merge"],
     setup: [],
     usage: `import { FlipWords } from "@/components/veyl/flip-words";
-import { Manrope } from "next/font/google";
-
-// Any font works. The flipping word uses the font of the sentence around it.
-const manrope = Manrope({
-  subsets: ["latin"],
-});
 
 export default function Page() {
   const words = ["modern", "better", "cute", "beautiful"];
 
   return (
-    <div className={\`\${manrope.className} text-4xl text-neutral-600 dark:text-neutral-400\`}>
-      Build <FlipWords words={words} className="font-semibold" /> websites
+    <div className="text-4xl text-neutral-600 dark:text-neutral-400">
+      Build <FlipWords words={words} /> websites
     </div>
   );
 }`,
@@ -209,11 +203,13 @@ export default function Page() {
       { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
       {
         need: "Styles",
-        detail: "flip-words.css is imported by the component. It sets the 3D perspective.",
+        detail:
+          "flip-words.css is imported by the component. It sets the font and the 3D perspective on .flip-words-container.",
       },
       {
         need: "Font",
-        detail: "None needed. The word uses the font of the sentence around it. Put Manrope, or any font, on the sentence with next/font.",
+        detail:
+          "Manrope, loaded by an @import at the top of flip-words.css. For production, next/font is faster.",
       },
       { need: "Tailwind", detail: "v4, with the neutral colours and the class-based dark variant." },
     ],
