@@ -71,6 +71,42 @@
           "target": "@components/veyl/drop-navbar/index.ts"
         }
       ]
+    },
+        {
+      "name": "beam-about",
+      "type": "registry:block",
+      "title": "Beam About",
+      "description": "An about section of cards connected by a beam of light that shimmers each card in turn.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/beam-about/beam-about.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/beam-about/beam-about.tsx"
+        },
+        {
+          "path": "src/registry/veyl/beam-about/beam-about.css",
+          "type": "registry:component",
+          "target": "@components/veyl/beam-about/beam-about.css"
+        },
+        {
+          "path": "src/registry/veyl/beam-about/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/beam-about/index.ts"
+        },
+        {
+          "path": "src/registry/veyl/beam-about/beam-visuals.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/beam-about/beam-visuals.tsx"
+        },
+        {
+          "path": "src/registry/veyl/beam-about/beam-step.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/beam-about/beam-step.ts"
+        }
+      ]
     }
   ]
 }

@@ -402,6 +402,87 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       "Keep the logo short. The bar is built for a logo, three or four links, a couple of icons and one button.",
     ],
   },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "beam-about",
+    title: "Beam About",
+    description:
+      "An about section of two to four cards. A beam of light leaves the first card, crosses to the next, and each card shimmers as the beam arrives.",
+    kind: "Block",
+    previewHeight: 560,
+    centered: false,
+    files: ["beam-about.tsx", "beam-visuals.tsx", "beam-step.ts", "beam-about.css", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { BeamAbout, BeamChecklist, BeamOrbit, BeamTyping } from "@/components/veyl/beam-about";
+
+export default function About() {
+  return (
+    <BeamAbout
+      eyebrow="About us"
+      title="What we do, in three steps"
+      description="A short line about your product."
+      steps={[
+        { title: "Choose", description: "One plain sentence.", visual: <BeamOrbit /> },
+        { title: "Add", description: "The simple way.", visual: <BeamTyping placeholder="Paste a command…" text="npx add thing" answer="Done" /> },
+        { title: "Enjoy", description: "What the visitor gains.", visual: <BeamChecklist title="Working" doneTitle="Ready" items={["One", "Two", "Three"]} /> },
+      ]}
+    />
+  );
+}`,
+    props: [
+      {
+        title: "BeamAbout",
+        rows: [
+          { name: "title", type: "string", description: "The main heading." },
+          { name: "eyebrow", type: "string", description: "A small line above the heading." },
+          { name: "description", type: "ReactNode", description: "A short intro under the heading." },
+          { name: "steps", type: "{ title; description; visual? }[]", description: "The columns, in order. Two to four work best. visual is the small scene inside the tile." },
+          { name: "actions", type: "ReactNode", description: "Buttons or links shown under the columns." },
+          { name: "className", type: "string", description: "Extra classes on the section. Use it to change the --ba-accent colour." },
+          { name: "hint", type: "ReactNode | false", default: '"Hover to pause. Click a tile to replay it."', description: "A small line under the tiles that explains hover and click. Pass false to hide it." },
+        ],
+      },
+      {
+        title: "BeamOrbit",
+        rows: [
+          { name: "radiusX", type: "number", default: "104", description: "How far the chips spread sideways, in pixels." },
+          { name: "radiusY", type: "number", default: "66", description: "How far the chips spread up and down, in pixels." },
+        ],
+      },
+      {
+        title: "BeamTyping",
+        rows: [
+          { name: "placeholder", type: "string", description: "Shown before the beam arrives." },
+          { name: "text", type: "string", description: "The line that gets typed." },
+          { name: "answer", type: "string", description: "A small chip that appears after the send button is pressed." },
+          { name: "mono", type: "boolean", default: "false", description: "Types in a monospace font. Good for commands." },
+        ],
+      },
+      {
+        title: "BeamChecklist",
+        rows: [
+          { name: "title", type: "string", description: "The heading while the rows are ticking." },
+          { name: "doneTitle", type: "string", description: "The heading once every row is ticked." },
+          { name: "items", type: "string[]", description: "The rows. Three fit the tile best." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. No animation library is needed, the motion is plain CSS." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      { need: "Tailwind", detail: "v4, with the neutral colours and the class-based dark variant." },
+      { need: "Fonts", detail: "None. The section uses the font of your page." },
+    ],
+    notes: [
+      "The beam only plays while the section is on screen, so it costs nothing when nobody is looking at it.",
+      "To change the glow colour, set --ba-accent: className=\"[--ba-accent:#16a34a]\". The beam, borders and ticks follow it.",
+      "To build your own scene, put any component in visual and call useBeamStep(). It returns { reached, reduced }: start your animation when reached turns true, and reset when it turns false.",
+      "On small screens the tiles stack and the beam travels downward. People who prefer reduced motion see every scene in its finished state, with no animation.",
+      "Hovering the tiles pauses the story, and the scene that is playing finishes first. Clicking a tile plays just that scene again, and the story restarts from the first tile when the pointer leaves. On touch screens a tapped scene plays once and the story carries on by itself.",
+      "Tiles are keyboard friendly: Tab to one and press Enter or Space to replay it.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {
