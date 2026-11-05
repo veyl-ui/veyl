@@ -40,6 +40,37 @@
         { "path": "src/registry/veyl/bento-grid/skeletons.tsx", "type": "registry:component", "target": "@components/veyl/bento-grid/skeletons.tsx" },
         { "path": "src/registry/veyl/bento-grid/index.ts", "type": "registry:component", "target": "@components/veyl/bento-grid/index.ts" }
       ]
+    },
+    {
+      "name": "drop-navbar",
+      "type": "registry:block",
+      "title": "Drop Navbar",
+      "description": "A sticky navbar that drops from the top on scroll, with curved ears and a shadow that follows its shape.",
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/drop-navbar/drop-navbar.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/drop-navbar/drop-navbar.tsx"
+        },
+        {
+          "path": "src/registry/veyl/drop-navbar/mobile-menu.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/drop-navbar/mobile-menu.tsx"
+        },
+        {
+          "path": "src/registry/veyl/drop-navbar/use-scrolled.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/drop-navbar/use-scrolled.ts"
+        },
+        {
+          "path": "src/registry/veyl/drop-navbar/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/drop-navbar/index.ts"
+        }
+      ]
     }
   ]
 }

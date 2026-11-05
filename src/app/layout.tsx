@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Nunito } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import { FaviconAnimator } from "@/components/brand/favicon-animator";
 import "./globals.css";
 
@@ -18,7 +19,6 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-
 export const metadata: Metadata = {
   title: { default: "Veyl", template: "%s · Veyl" },
   description:
@@ -27,14 +27,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${nunito.variable} ${geistMono.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">
-        <FaviconAnimator />
-        {children}
+    // suppressHydrationWarning is needed by next-themes (it adds a class to <html>).
+    <html lang="en" suppressHydrationWarning className={`${nunito.variable} ${geistMono.variable}`}>
+      <body>
+        {/* One theme provider for the whole site: landing page and docs share it. */}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <FaviconAnimator />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

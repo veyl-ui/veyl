@@ -342,6 +342,66 @@ export default function Page() {
       "Photos in the demo are from Unsplash, free to use: Michael Starkie, Zoshua Colah, Hannah Busing and pouchdirect Australia.",
     ],
   },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "drop-navbar",
+    title: "Drop Navbar",
+    description:
+      "A navbar that hangs from the top edge of the page, then folds its corners away and drops into a floating pill as you scroll.",
+    kind: "Block",
+    previewHeight: 460,
+    centered: false,
+    files: ["drop-navbar.tsx", "mobile-menu.tsx", "use-scrolled.ts", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import Link from "next/link";
+import { DropNavbar } from "@/components/veyl/drop-navbar";
+
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return (
+    <>
+      <DropNavbar
+        linkComponent={Link}
+        logo={<span className="text-xl font-bold">Acme</span>}
+        links={[
+          { label: "Features", href: "/features" },
+          { label: "Pricing", href: "/pricing" },
+        ]}
+        cta={{ label: "Get started", href: "/signup" }}
+      />
+      {children}
+    </>
+  );
+}`,
+    props: [
+      {
+        title: "DropNavbar",
+        rows: [
+          { name: "logo", type: "ReactNode", description: "Your logo and name, shown on the left. It links to logoHref." },
+          { name: "logoHref", type: "string", default: '"/"', description: "Where the logo links to." },
+          { name: "links", type: "{ label: string; href: string }[]", default: "[]", description: "Text links beside the logo. On small screens they move into a menu." },
+          { name: "actions", type: "ReactNode", description: "Small things before the button, such as icon buttons or a theme toggle. A thin divider follows them." },
+          { name: "cta", type: "{ label: string; href: string }", description: "The main button on the right. Its arrow slides forward on hover." },
+          { name: "linkComponent", type: "ElementType", default: '"a"', description: "Your router's link, such as Next's Link. Plain <a> tags are used if you leave it out." },
+          { name: "scrollContainer", type: "RefObject<HTMLElement | null>", description: "A scrolling element to watch instead of the page. Handy for demos inside a frame." },
+          { name: "scrolledAt", type: "number", default: "32", description: "How far to scroll, in pixels, before the bar turns into a floating pill." },
+          { name: "className", type: "string", description: "Extra classes on the outer header. Use it to change position or the --dn-bg colour." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. No animation library is needed, the motion is plain CSS." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      { need: "Tailwind", detail: "v4, with the neutral colours and the class-based dark variant." },
+      { need: "Fonts", detail: "None. The navbar uses the font of your page." },
+    ],
+    notes: [
+      "The bar is white, or near-black inside a .dark parent. To pick another colour, set --dn-bg: className=\"[--dn-bg:#fff7ed]\". The flared corners follow it.",
+      "It is sticky by default, so it stays at the top of the page while you scroll. Put it at the top of your layout, outside any element with overflow: hidden.",
+      "The motion switches off for people who prefer reduced motion. The bar still changes shape, it just does not animate.",
+      "Keep the logo short. The bar is built for a logo, three or four links, a couple of icons and one button.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {
