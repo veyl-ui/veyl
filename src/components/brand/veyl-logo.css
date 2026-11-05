@@ -1,0 +1,21 @@
+/* The mark breathes a little while it rests: each arm drifts up and down, out of step with the other. */
+.vl-breathe-a,
+.vl-breathe-b {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: vl-breathe 5.5s ease-in-out infinite alternate;
+}
+.vl-breathe-b {
+  animation-delay: -2.75s;
+}
+@keyframes vl-breathe {
+  from { transform: translateY(-0.9px) rotate(-1.6deg); }
+  to { transform: translateY(0.9px) rotate(1.6deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vl-breathe-a,
+  .vl-breathe-b {
+    animation: none;
+  }
+}

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { VeylMark } from "@/components/brand/veyl-mark";
+import { VeylLogo } from "@/components/brand/veyl-logo";
 import { componentDocs } from "@/lib/docs/components";
 import { GithubIcon } from "./icons";
 import { MobileNav } from "./mobile-nav";
@@ -17,11 +17,10 @@ export function DocsHeader() {
         <MobileNav />
 
         <Link
-          href="/docs"
+          href="/"
           className="flex items-center gap-2 rounded-md font-semibold tracking-tight text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
-          <VeylMark animate={false} className="h-6 w-6" />
-          Veyl
+          <VeylLogo markClassName="size-7" wordmarkClassName="text-base font-semibold" className="gap-2" />
         </Link>
 
         <nav aria-label="Main" className="ml-4 hidden items-center gap-1 text-sm md:flex">
