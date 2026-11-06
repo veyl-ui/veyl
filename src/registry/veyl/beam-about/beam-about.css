@@ -26,11 +26,11 @@
   color: transparent;
   background-image: linear-gradient(
     100deg,
-    var(--ba-accent) 0%,
-    var(--ba-accent) 38%,
-    color-mix(in srgb, var(--ba-accent) 20%, white) 50%,
-    var(--ba-accent) 62%,
-    var(--ba-accent) 100%
+    var(--brand-ink) 0%,
+    var(--brand-ink) 38%,
+    color-mix(in srgb, var(--brand-ink) 22%, white) 50%,
+    var(--brand-ink) 62%,
+    var(--brand-ink) 100%
   );
   background-size: 250% 100%;
   background-position: 100% 0; /* the bright band waits off to the left */

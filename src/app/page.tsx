@@ -1,6 +1,7 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { About } from "@/components/about";
+import { Showcase } from "@/components/showcase";
 
 export default function HomePage() {
   return (
@@ -10,6 +11,7 @@ export default function HomePage() {
         <main>
           <Hero />
           <About />
+          <Showcase />
         </main>
       </div>
     </>
