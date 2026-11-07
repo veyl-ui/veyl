@@ -4,6 +4,7 @@ import { DropNavbarDemo } from "./drop-navbar-demo";
 import { FlipWordsDemo } from "./flip-words-demo";
 import { HeroDemo } from "./hero-demo";
 import { BeamAboutDemo } from "./beam-about-demo";
+import { FaqDemo } from "./faq-demo";
 
 /** One live demo per component slug. A new component needs an entry here. */
 export const demos: Record<string, ReactNode> = {
@@ -12,4 +13,5 @@ export const demos: Record<string, ReactNode> = {
   "bento-grid": <BentoDemo />,
   "drop-navbar": <DropNavbarDemo />,
   "beam-about": <BeamAboutDemo />,
+  faq: <FaqDemo />,
 };
