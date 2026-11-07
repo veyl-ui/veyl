@@ -483,6 +483,82 @@ export default function About() {
       "Tiles are keyboard friendly: Tab to one and press Enter or Space to replay it.",
     ],
   },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "faq",
+    title: "FAQ",
+    description:
+      "Questions and answers in cards that open one at a time, grouped by category, with a plus that turns into a cross.",
+    kind: "Block",
+    previewHeight: 640,
+    centered: false,
+    files: ["faq.tsx", "faq.css", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { Faq } from "@/components/veyl/faq";
+
+const items = [
+  {
+    category: "Getting started",
+    question: "Is this a package I install?",
+    answer: "No. One command adds the files to your project.",
+  },
+  {
+    category: "Getting started",
+    question: "What do I need to use it?",
+    answer: "A React project with Tailwind CSS.",
+  },
+];
+
+export default function Page() {
+  return (
+    <Faq
+      items={items}
+      eyebrow="FAQ"
+      title="Questions? We've got answers."
+      description="Everything you need to know."
+    />
+  );
+}`,
+    props: [
+      {
+        title: "Faq",
+        rows: [
+          { name: "items", type: "FaqItem[]", description: "The questions. Each has a question, an answer and an optional category." },
+          { name: "eyebrow", type: "string", description: "Small label above the title, with a light that flows across it. Leave out to hide it." },
+          { name: "title", type: "ReactNode", description: "The heading. Leave out to hide the whole header." },
+          { name: "description", type: "ReactNode", description: "A line under the title." },
+          { name: "defaultOpen", type: "number | null", default: "0", description: "Which question starts open. Use null to start with all closed." },
+          { name: "numbered", type: "boolean", default: "true", description: "Show 01, 02, 03 before each question." },
+          { name: "className", type: "string", description: "Style the wrapper, or override the --fq-* colour variables." },
+        ],
+      },
+      {
+        title: "FaqItem",
+        rows: [
+          { name: "question", type: "string", description: "The text on the card." },
+          { name: "answer", type: "ReactNode", description: "The answer. Can include links or other markup." },
+          { name: "category", type: "string", description: "Items with the same category sit under one title with a question count." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. No animation library." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      {
+        need: "Styles",
+        detail:
+          "faq.css is imported by the component. Colours are --fq-accent, --fq-accent-ink, --fq-card, --fq-border, --fq-border-hover, --fq-ink and --fq-muted.",
+      },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant." },
+    ],
+    notes: [
+      "Only one question is open at a time. Clicking the open one closes it.",
+      "Closed answers are inert, so links inside them are skipped when tabbing.",
+      "The open and close animation uses grid rows, so answers of any height work without measuring.",
+      "With reduced motion on, the label stops flowing and the cards open instantly.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {
