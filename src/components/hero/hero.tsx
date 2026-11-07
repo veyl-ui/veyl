@@ -25,12 +25,12 @@ export function Hero() {
 
           <div className="relative z-10">
             <Link
-              href="/docs/components/drop-navbar"
+              href="/docs/components/beam-about"
               style={delay(0)}
-              className="hero-rise group inline-flex items-center gap-2 rounded-full border border-border bg-card/80 py-1 pl-1 pr-3 text-sm font-medium shadow-sm backdrop-blur transition-colors hover:bg-accent"
+              className="hero-rise group inline-flex items-center gap-2 rounded-md border border-border bg-card/80 py-1 pl-1 pr-3 text-sm font-medium shadow-sm backdrop-blur transition-colors hover:bg-accent"
             >
-              <span className="rounded-full bg-brand-soft px-2.5 py-0.5 text-xs font-bold text-brand-ink">New</span>
-              Drop Navbar is here
+              <span className="rounded-md bg-brand-soft px-2.5 py-0.5 text-xs font-bold text-brand-ink">New</span>
+              About component is here
               <ArrowRightIcon className="text-muted-foreground transition-transform duration-300 ease-soft group-hover:translate-x-0.5 motion-reduce:transition-none" />
             </Link>
 
@@ -55,7 +55,7 @@ export function Hero() {
             </p>
 
             <div className="hero-rise mt-8 flex flex-wrap items-center justify-center gap-3" style={delay(480)}>
-              <ButtonLink href="/docs/components/drop-navbar" className="group">
+              <ButtonLink href="/docs/components/illuminated-hero" className="group">
                 Browse components
                 <ArrowRightIcon className="transition-transform duration-300 ease-soft group-hover:translate-x-1 motion-reduce:transition-none" />
               </ButtonLink>
