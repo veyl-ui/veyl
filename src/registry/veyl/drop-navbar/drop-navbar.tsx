@@ -3,9 +3,29 @@
 import type { ElementType, ReactNode, RefObject } from "react";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./mobile-menu";
+import { NavMenu } from "./nav-menu";
 import { useScrolled } from "./use-scrolled";
 
-export type DropNavbarLink = { label: string; href: string };
+export type DropNavbarMenuItem = {
+  label: string;
+  href: string;
+  /** A small icon (about 18px) shown before the label. */
+  icon?: ReactNode;
+  /** A tiny tag after the label, such as "New". */
+  badge?: string;
+  /** Shown on the right while this row is highlighted. Leave out on every row for a plain list. */
+  preview?: ReactNode;
+};
+export type DropNavbarMenu = {
+  items: DropNavbarMenuItem[];
+  /** A row of small links along the bottom of the panel. */
+  footer?: { label: string; href: string; icon?: ReactNode }[];
+  footerLabel?: string;
+};
+/** A plain link (give it an href), or a dropdown (give it a menu). */
+export type DropNavbarLink =
+  | { label: string; href: string; menu?: undefined }
+  | { label: string; menu: DropNavbarMenu; href?: undefined };
 export type DropNavbarCta = { label: string; href: string };
 
 export type DropNavbarProps = {
@@ -13,7 +33,7 @@ export type DropNavbarProps = {
   logo: ReactNode;
   /** Where the logo links to. */
   logoHref?: string;
-  /** Text links shown beside the logo. They move into a menu on small screens. */
+  /** Links shown beside the logo. A link can open a dropdown if you give it a menu. They move into a menu on small screens. */
   links?: DropNavbarLink[];
   /** Small things before the button: icon buttons, a theme toggle. A divider follows them. */
   actions?: ReactNode;
@@ -34,7 +54,8 @@ export type DropNavbarProps = {
  * bar floats a little way down from the top as a pill. A soft shadow follows the shape.
  *
  * Colours: the bar is white, or near-black inside a `.dark` parent. To change it, set
- * --dn-bg on the component, for example className="[--dn-bg:#fff7ed]".
+ * --dn-bg on the component, for example className="[--dn-bg:#fff7ed]". The dropdown's
+ * highlight colour is --dn-accent.
  */
 const EAR = "1.5rem"; // size of the flare; also the side padding of the wrapper
 
@@ -72,7 +93,7 @@ export function DropNavbar({
   return (
     <header
       className={cn(
-        "pointer-events-none sticky top-0 z-50 flex justify-center px-6 [--dn-bg:#ffffff] dark:[--dn-bg:#171717]",
+        "pointer-events-none sticky top-0 z-50 flex justify-center px-6 [--dn-bg:#ffffff] [--dn-accent:#d97706] dark:[--dn-bg:#171717] dark:[--dn-accent:#fbbf24]",
         className,
       )}
     >
@@ -106,12 +127,16 @@ export function DropNavbar({
           </Anchor>
 
           {links.length > 0 ? (
-            <nav aria-label="Main" className="ml-8 hidden items-center gap-1 md:flex">
-              {links.map((l) => (
-                <Anchor key={l.label} href={l.href} className={linkClass}>
-                  {l.label}
-                </Anchor>
-              ))}
+            <nav aria-label="Main" className="ml-8 hidden items-center gap-1 self-stretch md:flex">
+              {links.map((l) =>
+                l.menu ? (
+                  <NavMenu key={l.label} label={l.label} menu={l.menu} Anchor={Anchor} triggerClass={linkClass} />
+                ) : (
+                  <Anchor key={l.label} href={l.href} className={linkClass}>
+                    {l.label}
+                  </Anchor>
+                ),
+              )}
             </nav>
           ) : null}
 

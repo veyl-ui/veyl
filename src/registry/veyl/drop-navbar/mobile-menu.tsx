@@ -1,7 +1,12 @@
 "use client";
 
 import { type ElementType, useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 import type { DropNavbarCta, DropNavbarLink } from "./drop-navbar";
+import { MenuLink } from "./nav-menu";
+
+const rowClass =
+  "rounded-xl px-4 py-3 text-base font-medium text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50";
 
 /** The menu button and dropdown for small screens. Wide screens show the links inline instead. */
 export function MobileMenu({
@@ -44,17 +49,39 @@ export function MobileMenu({
           className="absolute inset-x-0 top-full mt-2 rounded-3xl border border-neutral-200 bg-[var(--dn-bg)] p-3 dark:border-neutral-800"
         >
           <ul className="flex flex-col">
-            {links.map((l) => (
-              <li key={l.label}>
-                <Anchor
-                  href={l.href}
-                  onClick={() => setOpen(false)}
-                  className="block rounded-xl px-4 py-3 text-base font-medium text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-50"
-                >
-                  {l.label}
-                </Anchor>
-              </li>
-            ))}
+            {links.map((l) =>
+              l.menu ? (
+                <li key={l.label}>
+                  <p className="px-4 pb-1 pt-3 text-xs font-medium text-neutral-400 dark:text-neutral-500">{l.label}</p>
+                  <ul>
+                    {l.menu.items.map((item) => (
+                      <li key={item.label}>
+                        <MenuLink
+                          Anchor={Anchor}
+                          href={item.href}
+                          onClick={() => setOpen(false)}
+                          className={cn(rowClass, "flex items-center gap-3")}
+                        >
+                          {item.icon ? <span className="grid size-[1.125rem] place-items-center [&>svg]:size-[1.125rem]">{item.icon}</span> : null}
+                          {item.label}
+                          {item.badge ? (
+                            <span className="rounded-md bg-[color-mix(in_srgb,var(--dn-accent)_14%,transparent)] px-1.5 py-px text-[0.6875rem] font-medium text-[var(--dn-accent)]">
+                              {item.badge}
+                            </span>
+                          ) : null}
+                        </MenuLink>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li key={l.label}>
+                  <Anchor href={l.href} onClick={() => setOpen(false)} className={cn(rowClass, "block")}>
+                    {l.label}
+                  </Anchor>
+                </li>
+              ),
+            )}
           </ul>
           {cta ? (
             <Anchor

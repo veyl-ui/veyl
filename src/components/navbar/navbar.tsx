@@ -4,12 +4,12 @@ import Link from "next/link";
 import { VeylLogo } from "@/components/brand/veyl-logo";
 import { GithubIcon } from "@/components/docs/icons";
 import { ThemeToggle } from "@/components/docs/theme-toggle";
-import { DropNavbar } from "@/registry/veyl/drop-navbar";
+import { DropNavbar, type DropNavbarLink } from "@/registry/veyl/drop-navbar";
+import { resourcesMenu } from "./resources-menu";
 
-const links = [
+const links: DropNavbarLink[] = [
   { label: "Components", href: "/docs/components/illuminated-hero" },
-  { label: "Docs", href: "/docs" },
-  { label: "Install", href: "/#install" },
+  { label: "Resources", menu: resourcesMenu },
 ];
 
 /** The landing page navbar is Veyl's own Drop Navbar component, dressed with our logo and icons. */
