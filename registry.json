@@ -185,6 +185,46 @@
           "target": "@components/veyl/faq/index.ts"
         }
       ]
+    },
+    {
+      "name": "glass-cta",
+      "type": "registry:block",
+      "title": "Glass CTA",
+      "description": "A closing call to action with an interactive 3D cube. Frosted glass in light mode, solid in dark mode.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/glass-cta/glass-cta.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/glass-cta/glass-cta.tsx"
+        },
+        {
+          "path": "src/registry/veyl/glass-cta/glass-cube.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/glass-cta/glass-cube.tsx"
+        },
+        {
+          "path": "src/registry/veyl/glass-cta/glass-backdrop.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/glass-cta/glass-backdrop.tsx"
+        },
+        {
+          "path": "src/registry/veyl/glass-cta/glass-cta.css",
+          "type": "registry:component",
+          "target": "@components/veyl/glass-cta/glass-cta.css"
+        },
+        {
+          "path": "src/registry/veyl/glass-cta/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/glass-cta/index.ts"
+        }
+      ]
     }
   ]
 }

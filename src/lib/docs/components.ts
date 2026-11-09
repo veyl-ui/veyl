@@ -559,6 +559,75 @@ export default function Page() {
       "With reduced motion on, the label stops flowing and the cards open instantly.",
     ],
   },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "glass-cta",
+    title: "Glass CTA",
+    description:
+      "A closing call to action: words and buttons on the left, an interactive 3D cube on the right. Frosted glass in light mode, a solid panel in dark mode.",
+    kind: "Block",
+    previewHeight: 520,
+    centered: false,
+    files: ["glass-cta.tsx", "glass-cube.tsx", "glass-backdrop.tsx", "glass-cta.css", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { GlassBackdrop, GlassCta } from "@/components/veyl/glass-cta";
+
+export default function Page() {
+  return (
+    <div className="relative mx-auto max-w-4xl">
+      <GlassBackdrop />
+      <GlassCta
+        eyebrow="Get started"
+        title="Make your next page feel alive"
+        description="Copy a component, make it yours, and ship something people remember."
+        primary={{ label: "Get started", href: "/docs" }}
+        secondary={{ label: "Browse components", href: "/components" }}
+        command="npx shadcn@latest add your-component"
+      />
+    </div>
+  );
+}`,
+    props: [
+      {
+        title: "GlassCta",
+        rows: [
+          { name: "title", type: "ReactNode", description: "The headline." },
+          { name: "eyebrow", type: "string", description: "Small label above the headline, with a light that flows across it." },
+          { name: "description", type: "ReactNode", description: "A line or two under the headline." },
+          { name: "primary", type: "{ label: ReactNode; href: string }", description: "The filled button." },
+          { name: "secondary", type: "{ label: ReactNode; href: string }", description: "The outlined button." },
+          { name: "command", type: "string", description: "A command shown in a box with a Copy button." },
+          { name: "linkComponent", type: "ElementType", default: '"a"', description: "Your router's link, for example next/link, so buttons navigate without a page reload." },
+          { name: "hint", type: "string | null", default: '"Move your mouse over it. Click it."', description: "The small line under the cube. Use null to hide it." },
+          { name: "className", type: "string", description: "Style the panel, or override the --gc-* colour variables." },
+        ],
+      },
+      {
+        title: "GlassBackdrop",
+        rows: [
+          { name: "(no props)", type: "", description: "Soft light behind the panel, so the glass has something to frost. Place it first inside a relative wrapper that also holds the GlassCta." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. The 3D is plain CSS, so there is no 3D library." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      {
+        need: "Styles",
+        detail:
+          "glass-cta.css is imported by the component. Colours are --gc-ink, --gc-muted, --gc-accent-ink, --gc-button and --gc-button-ink.",
+      },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant." },
+    ],
+    notes: [
+      "The frosted-glass look needs something colourful behind the panel. Put GlassBackdrop next to it, or place the panel over your own gradient or image.",
+      "In dark mode the panel is solid and the backdrop turns into a faint amber glow.",
+      "The cube leans toward the pointer, spreads its faces while hovered, and spins with a pulse on click or tap. It also responds to Enter and Space.",
+      "It stops animating while off screen. With reduced motion on, the cube stays still and the small animations on its faces are switched off.",
+      "On narrow screens the cube moves above the words.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {
