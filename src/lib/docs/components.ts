@@ -628,6 +628,80 @@ export default function Page() {
       "On narrow screens the cube moves above the words.",
     ],
   },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "spotlight-footer",
+    title: "Spotlight Footer",
+    description:
+      "A footer with link columns, a brand block, a copyright row and a huge cropped wordmark that lights up amber under your pointer.",
+    kind: "Block",
+    previewHeight: 560,
+    centered: false,
+    files: ["spotlight-footer.tsx", "spotlight-wordmark.tsx", "spotlight-footer.css", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { SpotlightFooter } from "@/components/veyl/spotlight-footer";
+
+export default function Footer() {
+  return (
+    <SpotlightFooter
+      brand={<span className="text-lg font-medium">Acme</span>}
+      tagline="Tools that help small teams ship faster."
+      columns={[
+        {
+          title: "Product",
+          links: [
+            { label: "Features", href: "/features" },
+            { label: "Pricing", href: "/pricing" },
+          ],
+        },
+        {
+          title: "Company",
+          links: [
+            { label: "About", href: "/about" },
+            { label: "Contact", href: "/contact" },
+          ],
+        },
+      ]}
+      socials={[{ label: "GitHub", href: "https://github.com/acme", icon: <GithubIcon /> }]}
+      copyright="© 2026 Acme. All rights reserved."
+      wordmark="Acme"
+    />
+  );
+}`,
+    props: [
+      {
+        title: "SpotlightFooter",
+        rows: [
+          { name: "columns", type: "FooterColumn[]", description: "The link columns. Each has a title and a list of { label, href } links." },
+          { name: "brand", type: "ReactNode", description: "Your logo and name, shown at the top of the brand block." },
+          { name: "tagline", type: "ReactNode", description: "A short line under the logo." },
+          { name: "socials", type: "FooterSocial[]", description: "Icon links. Each has a label, an href and an icon (any element, such as an inline SVG)." },
+          { name: "copyright", type: "ReactNode", description: "The line in the middle of the bottom row." },
+          { name: "wordmark", type: "string", description: "The huge cropped word at the bottom. Leave out to hide it." },
+          { name: "end", type: "ReactNode", description: "Sits at the right of the copyright row. A theme switch is a good fit." },
+          { name: "linkComponent", type: "ElementType", default: '"a"', description: "Your router's link, for example next/link. Web addresses always use a plain link that opens in a new tab." },
+          { name: "className", type: "string", description: "Style the footer, or override the --sf-* colour variables." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. No animation library." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      {
+        need: "Styles",
+        detail:
+          "spotlight-footer.css is imported by the component. Colours are --sf-bg, --sf-ink, --sf-muted, --sf-line, --sf-word, --sf-accent and --sf-accent-ink.",
+      },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant." },
+    ],
+    notes: [
+      "The footer itself is a server component. Only the wordmark runs in the browser.",
+      "The wordmark scales with the width of the footer, so it fills the page on any screen.",
+      "When nobody is pointing at the wordmark, the light sweeps across it slowly by itself. It stops while off screen, and holds still with reduced motion.",
+      "On narrow screens the brand block moves above the link columns.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {

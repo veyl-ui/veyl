@@ -225,6 +225,41 @@
           "target": "@components/veyl/glass-cta/index.ts"
         }
       ]
+    },
+    {
+      "name": "spotlight-footer",
+      "type": "registry:block",
+      "title": "Spotlight Footer",
+      "description": "A footer with link columns, a brand block and a huge cropped wordmark that lights up under the pointer.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/spotlight-footer/spotlight-footer.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/spotlight-footer/spotlight-footer.tsx"
+        },
+        {
+          "path": "src/registry/veyl/spotlight-footer/spotlight-wordmark.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/spotlight-footer/spotlight-wordmark.tsx"
+        },
+        {
+          "path": "src/registry/veyl/spotlight-footer/spotlight-footer.css",
+          "type": "registry:component",
+          "target": "@components/veyl/spotlight-footer/spotlight-footer.css"
+        },
+        {
+          "path": "src/registry/veyl/spotlight-footer/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/spotlight-footer/index.ts"
+        }
+      ]
     }
   ]
 }
