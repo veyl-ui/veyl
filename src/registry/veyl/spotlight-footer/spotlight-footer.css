@@ -1,0 +1,120 @@
+/* Colours live here as variables. Override any of them on the component's className.
+   :where() keeps these defaults at zero specificity, so your override always wins. */
+:where(.sf-root) {
+  --sf-bg: transparent;
+  --sf-ink: #171717;
+  --sf-muted: #6b6b66;
+  --sf-line: rgb(0 0 0 / 0.1);
+  --sf-word: rgb(0 0 0 / 0.01); /* the faint wordmark */
+  --sf-accent: #f59e0b; /* top line and spotlight */
+  --sf-accent-ink: #b45309; /* link hover */
+}
+:where(.dark .sf-root) {
+  --sf-ink: #fafafa;
+  --sf-muted: #a3a3a3;
+  --sf-line: rgb(255 255 255 / 0.12);
+  --sf-word: rgb(255 255 255 / 0.12);
+  --sf-accent-ink: #fbbf24;
+}
+
+.sf-root { position: relative; overflow: hidden; background: var(--sf-bg); color: var(--sf-ink); }
+/* A thin amber line along the top that fades out at both ends. */
+.sf-root::before {
+  content: "";
+  position: absolute;
+  left: 10%; right: 10%; top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--sf-accent), transparent);
+  opacity: 0.8;
+}
+.sf-inner { --sf-pad: 32px; max-width: 72rem; margin: 0 auto; padding: 56px var(--sf-pad) 0; }
+
+/* ---------- Links and brand ---------- */
+.sf-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px 28px; }
+.sf-cols { display: flex; flex-wrap: wrap; gap: 40px 64px; }
+.sf-col h3 { margin: 0 0 16px; font-size: 14px; font-weight: 500; color: var(--sf-ink); }
+.sf-col ul { margin: 0; padding: 0; list-style: none; }
+.sf-col li { margin-bottom: 11px; }
+.sf-col a {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--sf-muted);
+  text-decoration: none;
+  transition: color 0.2s, transform 0.2s;
+}
+.sf-col a:hover { color: var(--sf-accent-ink); transform: translateX(3px); }
+.sf-col a:focus-visible, .sf-socials a:focus-visible { outline: 2px solid var(--sf-accent); outline-offset: 3px; border-radius: 4px; }
+
+.sf-brand { max-width: 270px; }
+.sf-logo { margin-bottom: 14px; }
+.sf-tagline { margin: 0 0 18px; font-size: 14px; line-height: 1.6; color: var(--sf-muted); }
+.sf-socials { display: flex; gap: 8px; }
+.sf-socials a {
+  display: grid;
+  place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 1px solid var(--sf-line);
+  color: var(--sf-muted);
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+.sf-socials a:hover { color: var(--sf-accent-ink); border-color: var(--sf-accent); transform: translateY(-2px); }
+.sf-socials svg { width: 18px; height: 18px; }
+
+/* ---------- Copyright row ---------- */
+.sf-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid var(--sf-line);
+}
+.sf-copy { font-size: 13px; color: var(--sf-muted); }
+.sf-end { position: absolute; right: 0; top: 50%; transform: translateY(-50%); }
+
+/* ---------- The huge cropped word ---------- */
+.sf-wm-wrap { container-type: inline-size; margin: 0 calc(var(--sf-pad) * -1); }
+.sf-wm {
+  position: relative;
+  height: min(29cqw, 360px);
+  overflow: hidden;
+  user-select: none;
+  touch-action: pan-y;
+}
+.sf-wm-base, .sf-wm-lit {
+  position: absolute;
+  left: 0; right: 0;
+  top: -0.01em;
+  text-align: center;
+  font-size: min(31cqw, 360px);
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.sf-wm-base { color: var(--sf-word); }
+/* The same word in amber, only visible inside a soft circle that follows the pointer. */
+.sf-wm-lit {
+  color: transparent;
+  background-image: linear-gradient(180deg, #fbbf24, #f97316);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-mask-image: radial-gradient(190px circle at var(--sf-x, -400px) var(--sf-y, -400px), #000 0%, transparent 100%);
+  mask-image: radial-gradient(190px circle at var(--sf-x, -400px) var(--sf-y, -400px), #000 0%, transparent 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .sf-inner { --sf-pad: 20px; padding-top: 44px; }
+  .sf-brand { order: -1; max-width: none; }
+  .sf-cols { gap: 32px 44px; }
+  .sf-bar { justify-content: space-between; }
+  .sf-end { position: static; transform: none; margin-left: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sf-col a, .sf-socials a { transition: none; }
+  .sf-col a:hover, .sf-socials a:hover { transform: none; }
+}
