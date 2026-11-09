@@ -3,6 +3,7 @@ import { FAQ } from "@/components/faq";
 import { Hero } from "@/components/hero";
 import { Navbar } from "@/components/navbar";
 import { Showcase } from "@/components/showcase";
+import { CTA } from "@/components/cta";
 
 export default function HomePage() {
   return (
@@ -13,6 +14,7 @@ export default function HomePage() {
         <About />
         <Showcase />
         <FAQ />
+        <CTA />
       </main>
     </>
   );
