@@ -351,7 +351,7 @@ export default function Page() {
     kind: "Block",
     previewHeight: 460,
     centered: false,
-    files: ["drop-navbar.tsx", "mobile-menu.tsx", "use-scrolled.ts", "index.ts"],
+    files: ["drop-navbar.tsx", "nav-menu.tsx", "mobile-menu.tsx", "use-scrolled.ts", "index.ts"],
     dependencies: ["clsx", "tailwind-merge"],
     setup: [],
     usage: `import Link from "next/link";
@@ -379,7 +379,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         rows: [
           { name: "logo", type: "ReactNode", description: "Your logo and name, shown on the left. It links to logoHref." },
           { name: "logoHref", type: "string", default: '"/"', description: "Where the logo links to." },
-          { name: "links", type: "{ label: string; href: string }[]", default: "[]", description: "Text links beside the logo. On small screens they move into a menu." },
+          { name: "links", type: "DropNavbarLink[]", default: "[]", description: "Links beside the logo. Give a link an href for a plain link, or a menu to open a dropdown. On small screens they move into a menu." },
           { name: "actions", type: "ReactNode", description: "Small things before the button, such as icon buttons or a theme toggle. A thin divider follows them." },
           { name: "cta", type: "{ label: string; href: string }", description: "The main button on the right. Its arrow slides forward on hover." },
           { name: "linkComponent", type: "ElementType", default: '"a"', description: "Your router's link, such as Next's Link. Plain <a> tags are used if you leave it out." },
@@ -400,6 +400,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       "It is sticky by default, so it stays at the top of the page while you scroll. Put it at the top of your layout, outside any element with overflow: hidden.",
       "The motion switches off for people who prefer reduced motion. The bar still changes shape, it just does not animate.",
       "Keep the logo short. The bar is built for a logo, three or four links, a couple of icons and one button.",
+      "A link with a menu opens a dropdown on hover, tap or Enter. Each menu item can have an icon, a badge and a preview that shows on the right while the row is highlighted. Leave out every preview for a plain list. The highlight colour is --dn-accent.",
     ],
   },
   /* ------------------------------------------------------------------ */
