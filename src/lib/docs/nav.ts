@@ -1,18 +1,22 @@
 import { componentDocs } from "./components";
 
 export type NavItem = { title: string; href: string; hint?: string };
-export type NavGroup = { title: string; items: NavItem[] };
+export type NavIcon = "book" | "grid";
+export type NavGroup = { title: string; icon?: NavIcon; items: NavItem[] };
 
 export const navGroups: NavGroup[] = [
   {
     title: "Getting started",
+    icon: "book",
     items: [
       { title: "Introduction", href: "/docs" },
       { title: "Installation", href: "/docs/installation" },
+      { title: "Theming", href: "/docs/theming" },
     ],
   },
   {
     title: "Components",
+    icon: "grid",
     items: componentDocs.map((doc) => ({
       title: doc.title,
       href: `/docs/components/${doc.slug}`,

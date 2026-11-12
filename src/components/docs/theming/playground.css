@@ -1,0 +1,26 @@
+/* Theming playground. The preview recolours the real components with the same selectors the page teaches. */
+.tp-stage .fq-root { --fq-accent: var(--tp-ac); --fq-accent-ink: var(--tp-ac); }
+.tp-stage .gc-root, .tp-stage .gc-backdrop { --gc-accent: var(--tp-ac); }
+.tp-stage .gc-root { --gc-accent-ink: var(--tp-ac); }
+.tp-stage .sf-root { --sf-accent: var(--tp-ac); --sf-accent-ink: var(--tp-ac); }
+
+/* Inspect mode: dashed outlines on every part that has a colour variable. */
+.tp-ins :is(.fq-eyebrow, .fq-number, .fq-card, .fq-answer, .gc-eyebrow, .gc-right, .gc-title, .gc-desc, .gc-btn, .sf-wm-wrap, .sf-col h3, .sf-col a, .sf-socials a, .sf-tagline, .sf-bar) {
+  outline: 1px dashed var(--tp-ac);
+  outline-offset: 2px;
+  cursor: help;
+}
+
+/* The dice turns when you press Surprise me. */
+.tp-dice { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+button:active > .tp-dice, button:hover > .tp-dice { transform: rotate(180deg); }
+
+/* The preview fades in when you switch component. */
+@keyframes tp-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.tp-fade { animation: tp-in 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-dice { transition: none; }
+  .tp-fade { animation: none; }
+  .tp-stage .gc-cube[data-spread="true"] { --d: 56px; }
+}
