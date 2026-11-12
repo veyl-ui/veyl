@@ -1,0 +1,254 @@
+/* Motion for the Theming page. Calm on purpose: small lifts, soft glows, slow loops.
+   Every animation below is switched off for people who prefer reduced motion. */
+
+@property --tm-ac { syntax: "<color>"; inherits: true; initial-value: #d97706; }
+@property --tm-cut { syntax: "<percentage>"; inherits: true; initial-value: 50%; }
+
+/* ---------- Scroll reveal ---------- */
+.tm-rise {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(4px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+.tm-rise-soft { filter: none; }
+.tm-rise[data-in="true"] { opacity: 1; transform: none; filter: none; }
+@media (scripting: none) { .tm-rise { opacity: 1; transform: none; filter: none; } }
+
+/* ---------- Cards that glow under the cursor, and lift ---------- */
+.tm-glow {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s, border-color 0.35s;
+}
+.tm-glow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--brand) 16%, transparent), transparent 70%);
+}
+.tm-glow:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--brand) 45%, var(--border));
+  box-shadow: 0 16px 32px -16px color-mix(in srgb, var(--brand) 45%, transparent);
+}
+.tm-glow:hover::before { opacity: 1; }
+.tm-tilt { transition: transform 0.18s ease-out, box-shadow 0.35s, border-color 0.35s; }
+.tm-tilt:hover { transform: perspective(800px) rotateX(var(--ry, 0deg)) rotateY(var(--rx, 0deg)) translateY(-3px); }
+
+/* ---------- Title area ---------- */
+.tm-hero { position: relative; isolation: isolate; }
+
+/* ---------- The 3D grid behind the title: a floor and a ceiling that rush toward you ---------- */
+.tm-stage { margin-inline: -1rem; padding-inline: 1rem; }
+.tm-grid {
+  position: absolute;
+  inset: -2rem 0 -1rem;
+  z-index: -1;
+  overflow: hidden;
+  perspective: 520px;
+  perspective-origin: 50% 50%;
+  pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse 58% 62% at 50% 50%, #000 32%, transparent 100%);
+  mask-image: radial-gradient(ellipse 58% 62% at 50% 50%, #000 32%, transparent 100%);
+}
+.tm-plane {
+  --line: rgb(0 0 0 / 0.17);
+  position: absolute;
+  left: -60%;
+  right: -60%;
+  height: 100%;
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px), linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+:is(.dark) .tm-plane { --line: rgb(255 255 255 / 0.2); }
+.tm-floor { top: 50%; transform-origin: 50% 0; transform: rotateX(68deg); animation: tm-run 5s linear infinite; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 30%); mask-image: linear-gradient(to bottom, transparent, #000 30%); }
+.tm-ceil { bottom: 50%; transform-origin: 50% 100%; transform: rotateX(-68deg); animation: tm-run-up 5s linear infinite; -webkit-mask-image: linear-gradient(to top, transparent, #000 30%); mask-image: linear-gradient(to top, transparent, #000 30%); }
+@keyframes tm-run { to { background-position: 0 40px; } }
+@keyframes tm-run-up { to { background-position: 0 -40px; } }
+
+/* The rig holds both planes, so the whole grid can lean toward the pointer. */
+.tm-rig {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateX(calc(var(--ty, 0) * -3deg)) rotateY(calc(var(--tx, 0) * 4deg));
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Single cells that light up and fade, like lights switching on across the floor. They scroll with the lines. */
+.tm-cells { position: absolute; inset: 0; animation: tm-cells 3.1s linear infinite; }
+.tm-ceil .tm-cells { animation-name: tm-cells-up; }
+@keyframes tm-cells { to { transform: translateY(40px); } }
+@keyframes tm-cells-up { to { transform: translateY(-40px); } }
+.tm-cells i {
+  position: absolute;
+  left: calc(var(--c) * 40px);
+  top: calc(var(--r) * 40px);
+  width: 40px;
+  height: 40px;
+  background: color-mix(in srgb, var(--brand) 55%, transparent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--brand) 70%, transparent);
+  opacity: 0;
+  animation: tm-cell 5.6s ease-in-out infinite;
+  animation-delay: var(--d);
+}
+@keyframes tm-cell { 0%, 70%, 100% { opacity: 0; } 82% { opacity: 0.55; } }
+
+/* A soft light under the pointer. */
+.tm-spot {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(240px circle at var(--px, 50%) var(--py, 50%), color-mix(in srgb, var(--brand) 20%, transparent), transparent 70%);
+}
+.tm-stage[data-on="true"] .tm-spot { opacity: 1; }
+
+/* Words sit at different depths: they drift a few pixels against the grid. */
+.tm-d1, .tm-d2 { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.tm-d1 { transform: translate3d(calc(var(--tx, 0) * -7px), calc(var(--ty, 0) * -5px), 0); }
+.tm-d2 { transform: translate3d(calc(var(--tx, 0) * -12px), calc(var(--ty, 0) * -8px), 0); }
+
+.tm-horizon {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 120px;
+  margin-top: -60px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--brand) 18%, transparent), transparent);
+  filter: blur(18px);
+}
+
+/* Things that stand in front of the grid cast a shadow on it, so they seem to float off the screen. */
+.tm-title { filter: drop-shadow(0 14px 22px color-mix(in srgb, var(--foreground) 22%, transparent)); }
+.tm-lift { box-shadow: 0 26px 38px -20px rgb(0 0 0 / 0.45), 0 2px 0 rgb(255 255 255 / 0.04) inset; }
+:is(.dark) .tm-lift { box-shadow: 0 30px 44px -18px rgb(0 0 0 / 0.9), 0 1px 0 rgb(255 255 255 / 0.08) inset; }
+.tm-pop-in { animation: tm-fadeup 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes tm-fadeup { from { opacity: 0; transform: translateY(10px) scale(0.96); } }
+.tm-title {
+  color: transparent;
+  background-image: linear-gradient(100deg, var(--foreground) 40%, var(--brand-ink) 50%, var(--foreground) 60%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: tm-shine 2.2s 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes tm-shine { to { background-position: 0 0; } }
+
+/* ---------- The live demo: one variable cycles through the recipes ---------- */
+.tm-cycle { animation: tm-cycle 14s ease-in-out infinite; }
+.tm-demo:hover, .tm-demo:hover * { animation-play-state: paused; }
+@keyframes tm-cycle {
+  0%, 12% { --tm-ac: #d97706; }
+  17%, 29% { --tm-ac: #e11d48; }
+  34%, 46% { --tm-ac: #7c3aed; }
+  51%, 63% { --tm-ac: #059669; }
+  68%, 80% { --tm-ac: #0284c7; }
+  85%, 97% { --tm-ac: #737373; }
+  100% { --tm-ac: #d97706; }
+}
+.tm-dot { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; background: var(--tm-ac); box-shadow: 0 0 10px var(--tm-ac); vertical-align: -0.05em; }
+.tm-btn { background: var(--tm-ac); color: #fff; }
+.tm-ring { border: 1.5px solid var(--tm-ac); box-shadow: 0 0 0 4px color-mix(in srgb, var(--tm-ac) 18%, transparent); }
+.tm-bar { background: var(--tm-ac); width: 62%; transform-origin: left; animation: tm-fill 3.2s ease-in-out infinite alternate; }
+@keyframes tm-fill { from { transform: scaleX(0.35); } to { transform: scaleX(1); } }
+.tm-switch { background: var(--tm-ac); }
+.tm-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; animation: tm-knob 2.4s ease-in-out infinite alternate; }
+@keyframes tm-knob { to { transform: translateX(16px); } }
+
+/* Variable chips */
+.tm-chip .tm-chipdot { transition: transform 0.25s; animation: tm-beat 2.8s ease-in-out infinite; }
+.tm-chip:hover .tm-chipdot { transform: scale(1.5); }
+.tm-chip .tm-arrow { transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+.tm-chip:hover .tm-arrow { transform: translateX(5px); }
+@keyframes tm-beat { 50% { opacity: 0.45; } }
+
+/* ---------- Why-cards icons ---------- */
+.tm-ico { color: var(--tm-ac); }
+.tm-spin { animation: tm-turn 7s linear infinite; transform-origin: center; }
+@keyframes tm-turn { to { transform: rotate(360deg); } }
+.tm-sw { position: relative; width: 30px; height: 18px; border-radius: 9px; background: var(--muted); border: 1px solid var(--border); animation: tm-swbg 2.4s ease-in-out infinite alternate; }
+.tm-sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 12px; height: 12px; border-radius: 50%; background: var(--foreground); animation: tm-knob2 2.4s ease-in-out infinite alternate; }
+@keyframes tm-knob2 { to { transform: translateX(12px); } }
+@keyframes tm-swbg { to { background: var(--brand); border-color: var(--brand); } }
+.tm-glow:hover .tm-sw, .tm-glow:hover .tm-sw::after { animation-duration: 1s; }
+
+/* ---------- "Where to put it" skeleton pages ---------- */
+.tm-sk { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 10px; border-radius: 10px; background: var(--background); border: 1px solid var(--border); }
+.tm-sk i { display: block; height: 22px; border-radius: 6px; background: var(--muted); border: 1px solid var(--border); transition: background-color 0.3s, border-color 0.3s; }
+.tm-sk i[data-on] {
+  background: color-mix(in srgb, var(--brand) 22%, var(--muted));
+  border-color: color-mix(in srgb, var(--brand) 55%, var(--border));
+  animation: tm-pulse 2.4s ease-in-out infinite;
+  animation-delay: calc(var(--k, 0) * 140ms);
+}
+.tm-glow:hover .tm-sk i[data-on] { background: var(--brand); border-color: var(--brand); }
+@keyframes tm-pulse { 50% { opacity: 0.55; } }
+
+/* ---------- Dark mode demo: a divider sweeps between light and dark ---------- */
+.tm-dd { position: relative; overflow: hidden; border-radius: 12px; border: 1px solid var(--border); animation: tm-sweep 7s ease-in-out infinite alternate; }
+.tm-dd:hover { animation-play-state: paused; }
+@keyframes tm-sweep { from { --tm-cut: 6%; } to { --tm-cut: 94%; } }
+.tm-dd-top { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--tm-cut)); }
+.tm-dd-line { position: absolute; top: 0; bottom: 0; left: var(--tm-cut); width: 2px; margin-left: -1px; background: var(--brand); box-shadow: 0 0 16px var(--brand); pointer-events: none; }
+.tm-dd-line::after { content: ""; position: absolute; top: 50%; left: 50%; width: 14px; height: 14px; margin: -7px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 30%, transparent); }
+
+/* ---------- Recipe cards: a tiny interface in the recipe's colour ---------- */
+.tm-rc { --r: var(--r-l); }
+:is(.dark) .tm-rc { --r: var(--r-d); }
+.tm-rc-ui { display: grid; gap: 8px; padding: 12px; border-radius: 10px; background: var(--background); border: 1px solid var(--border); }
+.tm-rc-row { display: flex; align-items: center; gap: 8px; }
+.tm-rc-btn { height: 20px; width: 62px; border-radius: 6px; background: var(--r); }
+.tm-rc-sw { position: relative; width: 30px; height: 18px; border-radius: 9px; background: var(--r); }
+.tm-rc-sw::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; animation: tm-knob 2.2s ease-in-out infinite alternate; }
+.tm-rc-track { flex: 1; height: 6px; border-radius: 3px; background: var(--muted); overflow: hidden; }
+.tm-rc-track b { display: block; height: 100%; width: 100%; border-radius: 3px; background: var(--r); transform-origin: left; animation: tm-fill 2.8s ease-in-out infinite alternate; }
+.tm-line { height: 7px; border-radius: 4px; background: linear-gradient(90deg, var(--muted) 30%, color-mix(in srgb, var(--r) 30%, var(--muted)) 50%, var(--muted) 70%); background-size: 250% 100%; animation: tm-skel 2.4s linear infinite; }
+@keyframes tm-skel { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+.tm-glow:hover .tm-rc-ui { border-color: color-mix(in srgb, var(--r) 55%, var(--border)); }
+.tm-glow.tm-rc:hover { box-shadow: 0 16px 32px -16px color-mix(in srgb, var(--r) 55%, transparent); border-color: color-mix(in srgb, var(--r) 45%, var(--border)); }
+.tm-glow.tm-rc::before { background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--r) 14%, transparent), transparent 70%); }
+
+/* ---------- Variable tables ---------- */
+.tm-swatch { cursor: pointer; border-radius: 6px; padding: 2px 6px 2px 2px; margin: -2px; transition: background-color 0.2s; }
+.tm-swatch:hover { background: var(--muted); }
+.tm-swatch .tm-sq { transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+.tm-swatch:hover .tm-sq { transform: scale(1.3) rotate(-6deg); }
+.tm-pop { animation: tm-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes tm-pop { from { transform: scale(0.8); opacity: 0; } to { transform: none; opacity: 1; } }
+
+/* ---------- Contrast meters ---------- */
+.tm-meter { position: relative; height: 8px; border-radius: 4px; background: var(--muted); }
+.tm-meter .fill { position: absolute; inset: 0 auto 0 0; width: 0; border-radius: 4px; transition: width 1s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: calc(var(--i, 0) * 80ms + 250ms); }
+.tm-rise[data-in="true"] .tm-meter .fill, .tm-meter.is-in .fill { width: var(--w); }
+.tm-meter .tick { position: absolute; top: -3px; bottom: -3px; width: 1px; background: var(--foreground); opacity: 0.45; }
+.tm-check { display: inline-block; opacity: 0; transform: scale(0.4); transition: opacity 0.3s, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); transition-delay: calc(var(--i, 0) * 80ms + 1000ms); }
+.tm-rise[data-in="true"] .tm-check { opacity: 1; transform: none; }
+
+/* ---------- Troubleshooting accordion ---------- */
+.tm-acc { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+.tm-acc[data-open="true"] { grid-template-rows: 1fr; }
+.tm-acc > div { overflow: hidden; }
+.tm-plus { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+[aria-expanded="true"] > .tm-plus { transform: rotate(135deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tm-rise { opacity: 1; transform: none; filter: none; transition: none; }
+  .tm-glow, .tm-tilt, .tm-glow:hover, .tm-tilt:hover { transition: none; transform: none; }
+  .tm-floor, .tm-ceil, .tm-cells, .tm-cells i, .tm-pop-in, .tm-title, .tm-cycle, .tm-bar, .tm-switch::after, .tm-chip .tm-chipdot, .tm-spin, .tm-sw, .tm-sw::after,
+  .tm-sk i[data-on], .tm-dd, .tm-rc-sw::after, .tm-rc-track b, .tm-line, .tm-pop { animation: none !important; }
+  .tm-title { color: var(--foreground); background: none; }
+  .tm-rig, .tm-d1, .tm-d2 { transform: none !important; transition: none; }
+  .tm-spot { display: none; }
+  .tm-cells i { opacity: 0.18; }
+  .tm-meter .fill { transition: none; width: var(--w); }
+  .tm-check { opacity: 1; transform: none; transition: none; }
+  .tm-acc, .tm-plus { transition: none; }
+}

@@ -1,24 +1,25 @@
 /* Colours live here as variables. Override any of them on the component's className. */
-.ba-root {
-  --ba-accent: #2563eb;
-  --ba-card: #ffffff;
-  --ba-stage: #f4f4f4;
-  --ba-border: rgb(0 0 0 / 0.1);
-  --ba-line: rgb(0 0 0 / 0.12);
-  --ba-muted: #a3a3a3;
-  --ba-ink: #171717;
-  --ba-stage-h: 12.5rem;
+@layer components {
+  :where(.ba-root) {
+    --ba-accent: #2563eb;
+    --ba-card: #ffffff;
+    --ba-stage: #f4f4f4;
+    --ba-border: rgb(0 0 0 / 0.1);
+    --ba-line: rgb(0 0 0 / 0.12);
+    --ba-muted: #a3a3a3;
+    --ba-ink: #171717;
+    --ba-stage-h: 12.5rem;
+  }
+  :where(.dark .ba-root) {
+    --ba-accent: #60a5fa;
+    --ba-card: #262626;
+    --ba-stage: #1a1a1a;
+    --ba-border: rgb(255 255 255 / 0.12);
+    --ba-line: rgb(255 255 255 / 0.16);
+    --ba-muted: #737373;
+    --ba-ink: #fafafa;
+  }
 }
-.dark .ba-root {
-  --ba-accent: #60a5fa;
-  --ba-card: #262626;
-  --ba-stage: #1a1a1a;
-  --ba-border: rgb(255 255 255 / 0.12);
-  --ba-line: rgb(255 255 255 / 0.16);
-  --ba-muted: #737373;
-  --ba-ink: #fafafa;
-}
-
 /* ---------- Eyebrow: a light flows across the text, left to right ---------- */
 /* ---------- Eyebrow: a light flows across the text, left to right ---------- */
 .ba-eyebrow {

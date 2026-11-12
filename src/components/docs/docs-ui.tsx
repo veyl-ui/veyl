@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import { getNeighbours } from "@/lib/docs/nav";
 import { ArrowLeftIcon, ArrowRightIcon } from "./icons";
+import { Toc } from "./toc";
 
 /* Small building blocks so every docs page reads the same way. */
 
@@ -129,7 +130,7 @@ export function DocsPage({
       <article className="min-w-0 max-w-4xl flex-1">{children}</article>
       {toc.length > 0 ? (
         <aside className="hidden w-48 shrink-0 2xl:block">
-          <nav aria-label="On this page" className="sticky top-24 text-sm">
+          {/* <nav aria-label="On this page" className="sticky top-24 text-sm">
             <p className="mb-3 font-medium text-foreground">On this page</p>
             <ul className="space-y-2 border-l border-border">
               {toc.map((item) => (
@@ -143,7 +144,8 @@ export function DocsPage({
                 </li>
               ))}
             </ul>
-          </nav>
+          </nav> */}
+          <Toc toc={toc} />
         </aside>
       ) : null}
     </div>
