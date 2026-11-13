@@ -13,6 +13,7 @@ export const navGroups: NavGroup[] = [
       { title: "Installation", href: "/docs/installation" },
       { title: "Theming", href: "/docs/theming" },
       { title: "Changelog", href: "/docs/changelog" },
+      { title: "Contribute", href: "/docs/contribute" },
     ],
   },
   {

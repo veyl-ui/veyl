@@ -161,7 +161,7 @@ export const resourcesMenu: DropNavbarMenu = {
     { label: "Theming", href: "/docs/theming", icon: <PaletteIcon />, preview: themingPreview },
     { label: "Changelog", href: "/docs/changelog", icon: <HistoryIcon />, badge: "New", preview: changelogPreview },
     { label: "License", href: "/license", icon: <ScaleIcon />, preview: licensePreview },
-    { label: "Contribute", href: "/contribute", icon: <PullRequestIcon />, preview: contributePreview },
+    { label: "Contribute", href: "/docs/contribute", icon: <PullRequestIcon />, preview: contributePreview },
   ],
   footerLabel: "Community",
   footer: [
