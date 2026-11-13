@@ -159,7 +159,7 @@ export const resourcesMenu: DropNavbarMenu = {
   items: [
     { label: "Installation", href: "/docs/installation", icon: <DownloadIcon />, preview: installPreview },
     { label: "Theming", href: "/docs/theming", icon: <PaletteIcon />, preview: themingPreview },
-    { label: "Changelog", href: "/changelog", icon: <HistoryIcon />, badge: "New", preview: changelogPreview },
+    { label: "Changelog", href: "/docs/changelog", icon: <HistoryIcon />, badge: "New", preview: changelogPreview },
     { label: "License", href: "/license", icon: <ScaleIcon />, preview: licensePreview },
     { label: "Contribute", href: "/contribute", icon: <PullRequestIcon />, preview: contributePreview },
   ],

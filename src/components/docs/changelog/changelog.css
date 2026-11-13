@@ -1,0 +1,16 @@
+/* Changelog: the picture opens in a dialog that fades and scales in. */
+.cl-dialog[open] { animation: cl-open 0.28s cubic-bezier(0.22, 1, 0.36, 1); }
+.cl-dialog[open]::backdrop { animation: cl-fade 0.28s ease-out; }
+@keyframes cl-open { from { opacity: 0; transform: scale(0.96) translateY(8px); } }
+@keyframes cl-fade { from { opacity: 0; } }
+
+/* The newest dot breathes. */
+.cl-dot-live { animation: cl-ping 2.6s ease-out infinite; }
+@keyframes cl-ping {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--brand) 45%, transparent); }
+  70%, 100% { box-shadow: 0 0 0 9px transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cl-dialog[open], .cl-dialog[open]::backdrop, .cl-dot-live { animation: none; }
+}
