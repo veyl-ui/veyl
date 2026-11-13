@@ -26,6 +26,21 @@ export type ChangeEntry = {
 export const changelog: ChangeEntry[] = [
   {
     date: "2026-11-13",
+    title: "Contribute page",
+    tag: "Docs",
+    // images: ["/changelog/contribute.png"],
+    imageAlt: "The Contribute page with its contribution-graph header",
+    description: "A page that shows how to help, with a header that plays a small contribution-graph story.",
+    points: [
+      "A snake runs through a GitHub-style graph and the squares grow back with new shades",
+      "Five steps from a fork to a running docs site",
+      "The folder layout and house rules for a new component",
+      "A checklist to run through before a pull request",
+    ],
+    conclusion: "Everything you need to add the next block.",
+  },
+  {
+    date: "2026-11-13",
     title: "This changelog",
     tag: "Docs",
     images: ["/changelog/Veyl Changelog in a Warm Gradient Panel.png"],
