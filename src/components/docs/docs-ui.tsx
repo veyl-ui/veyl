@@ -117,34 +117,23 @@ export function SimpleTable({
   );
 }
 
+
 /** A docs page with an "On this page" list on wide screens. */
 export function DocsPage({
   children,
   toc,
+  tocFrom = "2xl",
 }: {
   children: ReactNode;
   toc: { id: string; title: string }[];
+  /** The screen width from which the list is shown. Most pages use "2xl"; shorter pages can use "xl". */
+  tocFrom?: "xl" | "2xl";
 }) {
   return (
     <div className="flex gap-12">
       <article className="min-w-0 max-w-4xl flex-1">{children}</article>
       {toc.length > 0 ? (
-        <aside className="hidden w-48 shrink-0 2xl:block">
-          {/* <nav aria-label="On this page" className="sticky top-24 text-sm">
-            <p className="mb-3 font-medium text-foreground">On this page</p>
-            <ul className="space-y-2 border-l border-border">
-              {toc.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className="-ml-px block border-l border-transparent pl-4 text-muted-foreground transition-colors hover:border-brand hover:text-foreground"
-                  >
-                    {item.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav> */}
+        <aside className={`hidden w-48 shrink-0 ${tocFrom === "xl" ? "xl:block" : "2xl:block"}`}>
           <Toc toc={toc} />
         </aside>
       ) : null}
