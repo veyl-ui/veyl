@@ -265,6 +265,36 @@
           "target": "@components/veyl/spotlight-footer/index.ts"
         }
       ]
+    },
+    {
+      "name": "isometric-cards",
+      "type": "registry:block",
+      "title": "Isometric Cards",
+      "description": "Feature cards that each show a small isometric block. Hover one and a face slides away while labelled lines draw out from it.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/isometric-cards/isometric-cards.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/isometric-cards/isometric-cards.tsx"
+        },
+        {
+          "path": "src/registry/veyl/isometric-cards/isometric-cards.css",
+          "type": "registry:component",
+          "target": "@components/veyl/isometric-cards/isometric-cards.css"
+        },
+        {
+          "path": "src/registry/veyl/isometric-cards/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/isometric-cards/index.ts"
+        }
+      ]
     }
   ]
 }

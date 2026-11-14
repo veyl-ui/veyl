@@ -703,6 +703,88 @@ export default function Footer() {
       "On narrow screens the brand block moves above the link columns.",
     ],
   },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "isometric-cards",
+    title: "Isometric Cards",
+    description:
+      "Feature cards that each show a small isometric block. Hover one and a face of the block slides away while labelled lines draw out from it.",
+    kind: "Block",
+    previewHeight: 660,
+    centered: false,
+    files: ["isometric-cards.tsx", "isometric-cards.css", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { IsometricCards } from "@/components/veyl/isometric-cards";
+
+const cards = [
+  {
+    face: "left",
+    title: "Modular by design",
+    callouts: ["Tokens", "Tests", "Docs"],
+    description: "Every block ships with its own tokens, tests, and docs.",
+  },
+  {
+    face: "top",
+    title: "Open the lid on performance",
+    callouts: ["Zero runtime", "Tree-shaking", "Typed API"],
+    description: "Zero-runtime styles keep your bundle small.",
+  },
+  {
+    face: "right",
+    title: "Themes that travel",
+    callouts: ["One token file", "Web + native", "Dark mode"],
+    description: "One token file re-skins every block.",
+  },
+] as const;
+
+export default function Page() {
+  return (
+    <IsometricCards
+      cards={[...cards]}
+      heading="Build with blocks, not boilerplate"
+      subheading="Hover each card to see inside."
+    />
+  );
+}`,
+    props: [
+      {
+        title: "IsometricCards",
+        rows: [
+          { name: "cards", type: "IsometricCard[]", description: "The cards. Each has a face, a title, a description and optional callouts." },
+          { name: "heading", type: "ReactNode", description: "The title above the cards. Leave out to hide the header." },
+          { name: "subheading", type: "ReactNode", description: "A line under the heading." },
+          { name: "theme", type: '"light" | "dark"', description: "Force one look for this block. By default it follows the site's dark mode." },
+          { name: "className", type: "string", description: "Style the wrapper, or override the --iso-* colour variables." },
+        ],
+      },
+      {
+        title: "IsometricCard",
+        rows: [
+          { name: "face", type: '"left" | "top" | "right"', description: "Which face of the block slides away on hover." },
+          { name: "title", type: "string", description: "The card's title." },
+          { name: "description", type: "ReactNode", description: "The text under the title." },
+          { name: "callouts", type: "[string?, string?, string?]", description: "Up to three labels, drawn out in the order top, right, left. The label on the sliding face is brighter." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. No animation library." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      {
+        need: "Styles",
+        detail:
+          "isometric-cards.css is imported by the component. Colours are --iso-ink, --iso-muted, --iso-card, --iso-panel, --iso-border, --iso-accent, --iso-left, --iso-right, --iso-top, --iso-hole and --iso-edge.",
+      },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant." },
+    ],
+    notes: [
+      "On a touch screen, tap a card to open it and tap again to close it.",
+      "The block leans slightly toward the pointer. Cards are focusable, so the same animation plays for keyboard users.",
+      "The labels are decorative: the title and description carry the meaning for screen readers.",
+      "With reduced motion on, the block no longer leans and the faces change instantly.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {

@@ -1,0 +1,128 @@
+/* Colours live here as variables. Override any of them with a Tailwind className
+   (for example className="[--iso-accent:#e11d48]") or with your own CSS.
+   The defaults sit in the components layer, so both of those always win. */
+@layer components {
+  :where(.iso-root) {
+    --iso-ink: #17171a;
+    --iso-muted: #6d6d78;
+    --iso-card: #ffffff;
+    --iso-panel: #fbfbfc; /* the framed box the block sits in */
+    --iso-border: #e3e3e8;
+    --iso-accent: #1f8fe6; /* the lines and outlines that light up on hover */
+    --iso-left: #e4e4ea; /* the three faces of the block */
+    --iso-right: #f3f3f6;
+    --iso-top: #f6f6f9;
+    --iso-hole: #dcdce4;
+    --iso-edge: #cfcfd9;
+  }
+  :where(.dark .iso-root) {
+    --iso-ink: #ededf0;
+    --iso-muted: #8e8e98;
+    --iso-card: #121215;
+    --iso-panel: #0e0e11;
+    --iso-border: #26262c;
+    --iso-accent: #3aa7f0;
+    --iso-left: #0a0a0b;
+    --iso-right: #17171a;
+    --iso-top: #18181b;
+    --iso-hole: #09090a;
+    --iso-edge: #2d2d33;
+  }
+}
+/* Pass theme="light" or theme="dark" to ignore the site's mode for this block. */
+.iso-root[data-theme="dark"] {
+  --iso-ink: #ededf0;
+  --iso-muted: #8e8e98;
+  --iso-card: #121215;
+  --iso-panel: #0e0e11;
+  --iso-border: #26262c;
+  --iso-accent: #3aa7f0;
+  --iso-left: #0a0a0b;
+  --iso-right: #17171a;
+  --iso-top: #18181b;
+  --iso-hole: #09090a;
+  --iso-edge: #2d2d33;
+}
+.iso-root[data-theme="light"] {
+  --iso-ink: #17171a;
+  --iso-muted: #6d6d78;
+  --iso-card: #ffffff;
+  --iso-panel: #fbfbfc;
+  --iso-border: #e3e3e8;
+  --iso-accent: #1f8fe6;
+  --iso-left: #e4e4ea;
+  --iso-right: #f3f3f6;
+  --iso-top: #f6f6f9;
+  --iso-hole: #dcdce4;
+  --iso-edge: #cfcfd9;
+}
+
+.iso-root { color: var(--iso-ink); }
+
+.iso-head { max-width: 560px; margin: 0 auto 40px; text-align: center; }
+.iso-head h2 { margin: 0 0 8px; font-size: clamp(28px, 4.5vw, 42px); line-height: 1.1; font-weight: 800; letter-spacing: -0.025em; }
+.iso-head p { margin: 0; color: var(--iso-muted); }
+
+.iso-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 16px; }
+
+.iso-card {
+  border-radius: 22px;
+  overflow: hidden;
+  outline: none;
+  padding: 12px;
+  background: var(--iso-card);
+  border: 1px solid var(--iso-border);
+  transition: transform 0.3s ease, border-color 0.3s;
+}
+.iso-card:is(:hover, :focus-visible, .iso-on) { transform: translateY(-3px); border-color: var(--iso-muted); }
+.iso-card:focus-visible { outline: 2px solid var(--iso-ink); outline-offset: 3px; }
+
+/* the framed box the block sits in */
+.iso-ill {
+  aspect-ratio: 300 / 220;
+  border-radius: 12px;
+  background: var(--iso-panel);
+  border: 1px solid var(--iso-border);
+  transition: border-color 0.35s;
+}
+.iso-card:is(:hover, :focus-visible, .iso-on) .iso-ill { border-color: color-mix(in srgb, var(--iso-accent) 45%, var(--iso-border)); }
+.iso-svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+/* the whole block leans a little toward the pointer */
+.iso-scene { transform: translate(calc(var(--px, 0) * 3px), calc(var(--py, 0) * 2px)); transition: transform 0.25s ease-out; }
+
+/* faces: fill and slide */
+.iso-fl, .iso-fr, .iso-ft { transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.25, 1); }
+.iso-bx { stroke: var(--iso-edge); stroke-width: 1.3; stroke-linejoin: round; transition: stroke 0.35s; }
+.iso-fl .iso-bx { fill: var(--iso-left); }
+.iso-fr .iso-bx { fill: var(--iso-right); }
+.iso-ft .iso-bx { fill: var(--iso-top); }
+.iso-ft .iso-bx.iso-hole { fill: var(--iso-hole); }
+.iso-dl { stroke: var(--iso-edge); stroke-width: 0.9; stroke-dasharray: 3 2.6; stroke-linecap: round; transition: stroke 0.35s; }
+.iso-card:is(:hover, :focus-visible, .iso-on) :is(.iso-bx, .iso-dl) { stroke: var(--iso-accent); }
+
+.iso-card.iso-v-left:is(:hover, :focus-visible, .iso-on) .iso-fl { transform: translate(-14px); }
+.iso-card.iso-v-right:is(:hover, :focus-visible, .iso-on) .iso-fr { transform: translate(14px); }
+.iso-card.iso-v-top:is(:hover, :focus-visible, .iso-on) .iso-ft { transform: translateY(-26px); }
+
+/* callouts: a line draws out, then the label fades in */
+.iso-co { pointer-events: none; }
+.iso-co-top { transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.25, 1); }
+.iso-card.iso-v-top:is(:hover, :focus-visible, .iso-on) .iso-co-top { transform: translateY(-26px); }
+.iso-co path { fill: none; stroke: var(--iso-muted); stroke-width: 1; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; transition: stroke-dashoffset 0.2s ease, opacity 0.2s; }
+.iso-co circle { fill: var(--iso-ink); opacity: 0; transition: opacity 0.15s; }
+.iso-co text { font-size: 10px; font-weight: 700; font-family: inherit; letter-spacing: 0.02em; fill: var(--iso-muted); opacity: 0; transform: translateY(3px); transition: opacity 0.15s, transform 0.15s; }
+.iso-co.iso-hl path { stroke: var(--iso-ink); }
+.iso-co.iso-hl text { fill: var(--iso-ink); }
+.iso-card:is(:hover, :focus-visible, .iso-on) .iso-co path { opacity: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 0.5s ease calc(0.15s + var(--i) * 0.1s); }
+.iso-card:is(:hover, :focus-visible, .iso-on) .iso-co circle { opacity: 1; transition: opacity 0.2s calc(0.1s + var(--i) * 0.1s); }
+.iso-card:is(:hover, :focus-visible, .iso-on) .iso-co text { opacity: 1; transform: none; transition: opacity 0.35s calc(0.4s + var(--i) * 0.1s), transform 0.35s calc(0.4s + var(--i) * 0.1s); }
+
+.iso-tx { padding: 20px 10px 12px; }
+.iso-tx h3 { margin: 0 0 6px; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; }
+.iso-tx p { margin: 0; color: var(--iso-muted); }
+
+@media (prefers-reduced-motion: reduce) {
+  .iso-root * { transition-duration: 0.01s !important; }
+  .iso-scene { transform: none !important; }
+}

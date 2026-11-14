@@ -25,6 +25,44 @@ export type ChangeEntry = {
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "2026-11-14",
+    title: "Isometric Cards",
+    tag: "Added",
+    // images: ["/changelog/isometric-cards.png"],
+    imageAlt: "Three cards, each with an isometric block that opens on hover",
+    description:
+      "Feature cards with a small isometric block on each. Hover one and a face of the block slides away while labelled lines draw out from it.",
+    points: [
+      "A different face slides away on each card: left, top or right",
+      "Up to three labels draw out from the block, one after another",
+      "The block leans a little toward your pointer",
+      "Tap a card on a touch screen to open it, tap again to close it",
+      "Follows light and dark mode, or force one with `theme`",
+      "Every colour is an `--iso-*` variable you can override",
+      "Cards are focusable, and reduced motion is respected",
+    ],
+    conclusion: "Cards that show what is inside before you read a word.",
+  },
+  {
+    date: "2026-11-14",
+    title: "License page",
+    tag: "Docs",
+    // images: ["/changelog/license.png"],
+    imageAlt: "The License page with the tilted MIT paper",
+    description:
+      "Veyl is MIT licensed, and the License page explains what that means in plain words, with the real text right beside it.",
+    points: [
+      "A tilted paper with a highlighter and a turning MIT seal",
+      "Click the paper and it opens full size, ready to read",
+      "A “Can I…?” checker: pick what you want to do and get a straight answer",
+      "The license read line by line, each paragraph next to what it means",
+      "A one-click button that copies the full license text",
+      "A list of the work Veyl is built on, each with its own license",
+      "A `LICENSE` file in the repo, the same text as the page",
+    ],
+    conclusion: "Free to use, free to change, and easy to understand.",
+  },
+  {
     date: "2026-11-13",
     title: "Contribute page",
     tag: "Docs",
