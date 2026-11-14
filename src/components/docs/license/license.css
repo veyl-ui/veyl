@@ -1,0 +1,133 @@
+/* License page: the tilted paper, its highlighter, and the box it opens into. */
+.lc-paper, .lc-big { --lc-paper: #fffefb; --lc-edge: #e8e2d3; --lc-mark: rgba(245, 158, 11, 0.38); }
+.dark .lc-paper, .dark .lc-big { --lc-paper: #141311; --lc-edge: #2c2820; --lc-mark: rgba(245, 158, 11, 0.42); }
+
+.lc-stage { perspective: 1100px; padding: 10px; cursor: zoom-in; position: relative; outline: none; }
+.lc-paper {
+  position: relative;
+  background: var(--lc-paper);
+  border: 1px solid var(--lc-edge);
+  border-radius: 6px;
+  padding: 26px 26px 30px;
+  transform: rotateY(-9deg) rotateX(5deg) rotate(1.5deg);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+  box-shadow: 0 40px 60px -30px rgb(40 30 10 / 0.35), 0 10px 20px -12px rgb(40 30 10 / 0.25);
+}
+.dark .lc-paper { box-shadow: 0 40px 70px -30px #000, 0 0 0 1px rgb(255 255 255 / 0.03) inset; }
+.lc-stage:hover .lc-paper, .lc-stage:focus-visible .lc-paper { transform: rotateY(-3deg) rotateX(2deg) rotate(0.5deg); }
+.lc-stage:focus-visible .lc-paper { box-shadow: 0 0 0 2px var(--background), 0 0 0 4px var(--brand); }
+
+/* a slow shine that crosses the paper */
+.lc-paper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 6px;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+  background: linear-gradient(115deg, transparent 40%, rgb(255 255 255 / 0.55) 50%, transparent 60%) 150% 0 / 250% 100%;
+  animation: lc-sheen 7s ease-in-out infinite;
+}
+.dark .lc-paper::before { opacity: 0.12; }
+@keyframes lc-sheen { 0%, 55% { background-position: 150% 0; } 100% { background-position: -50% 0; } }
+
+.lc-seal { position: absolute; right: -26px; bottom: -30px; width: 104px; height: 104px; transform: rotate(-12deg); }
+.lc-seal svg { width: 100%; height: 100%; animation: lc-spin 24s linear infinite; }
+@keyframes lc-spin { to { transform: rotate(360deg); } }
+.lc-stage:hover .lc-seal { animation: lc-wob 0.9s ease-in-out infinite; }
+@keyframes lc-wob { 0%, 100% { transform: rotate(-12deg); } 50% { transform: rotate(-4deg) scale(1.06); } }
+
+.lc-hint {
+  position: absolute;
+  left: 50%;
+  bottom: -34px;
+  transform: translateX(-50%) translateY(6px);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font-size: 12.5px;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--brand-ink);
+  background: var(--brand-soft);
+  border: 1px solid color-mix(in srgb, var(--brand) 35%, transparent);
+  opacity: 0;
+  transition: 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.lc-stage:hover .lc-hint, .lc-stage:focus-visible .lc-hint { opacity: 1; transform: translateX(-50%); }
+.lc-hint i { width: 6px; height: 6px; border-radius: 50%; background: var(--brand); animation: lc-ping 1.6s ease-out infinite; }
+@keyframes lc-ping { 0% { box-shadow: 0 0 0 0 rgb(245 158 11 / 0.55); } 100% { box-shadow: 0 0 0 8px rgb(245 158 11 / 0); } }
+
+/* the highlighter: on the paper it loops, in the opened box it sweeps once */
+.lc-mk {
+  color: var(--foreground);
+  background: linear-gradient(var(--lc-mark), var(--lc-mark)) no-repeat 0 88% / 0% 70%;
+  animation: lc-mk 9s ease-in-out infinite;
+  animation-delay: var(--d, 0s);
+}
+@keyframes lc-mk { 0%, 4% { background-size: 0% 70%; } 16%, 52% { background-size: 100% 70%; } 64%, 100% { background-size: 0% 70%; } }
+
+/* the opened box */
+.lc-ov { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; }
+.lc-bk { position: absolute; inset: 0; background: rgb(10 8 4 / 0.55); backdrop-filter: blur(6px); opacity: 0; transition: opacity 0.4s; }
+.lc-ov[data-show="true"] .lc-bk { opacity: 1; }
+.lc-big {
+  position: relative;
+  width: min(640px, 100%);
+  max-height: 88vh;
+  overflow: auto;
+  background: var(--lc-paper);
+  border: 1px solid var(--lc-edge);
+  border-radius: 10px;
+  padding: 38px 40px 40px;
+  box-shadow: 0 50px 100px -30px rgb(0 0 0 / 0.6);
+  will-change: transform;
+}
+.lc-big .lc-mk { animation: none; background-size: 0% 70%; transition: background-size 0.8s cubic-bezier(0.22, 1, 0.36, 1); transition-delay: var(--d2, 0s); }
+.lc-ov[data-read="true"] .lc-big .lc-mk { background-size: 100% 70%; }
+.lc-bigseal {
+  position: absolute;
+  right: 34px;
+  bottom: 26px;
+  width: 84px;
+  height: 84px;
+  pointer-events: none;
+  transform: rotate(-12deg) scale(0);
+  transition: transform 0.5s cubic-bezier(0.34, 1.7, 0.64, 1) 0.55s;
+}
+.lc-ov[data-read="true"] .lc-bigseal { transform: rotate(-12deg) scale(1); }
+
+/* the "Can I...?" verdict */
+.lc-yes { --vbg: color-mix(in srgb, #16a34a 16%, transparent); --vfg: #15803d; }
+.lc-note { --vbg: color-mix(in srgb, #d97706 16%, transparent); --vfg: #b45309; }
+.lc-no { --vbg: color-mix(in srgb, #dc2626 14%, transparent); --vfg: #b91c1c; }
+.dark .lc-yes { --vfg: #4ade80; }
+.dark .lc-note { --vfg: #fbbf24; }
+.dark .lc-no { --vfg: #f87171; }
+.lc-verdict::after {
+  content: "";
+  position: absolute;
+  inset: auto -20% -60% -20%;
+  height: 70%;
+  background: radial-gradient(closest-side, var(--vfg), transparent);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.lc-pop { animation: lc-pop 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes lc-pop { from { opacity: 0; transform: translateY(6px); } }
+
+@media (max-width: 640px) {
+  .lc-paper { transform: rotate(1deg); }
+  .lc-stage:hover .lc-paper { transform: rotate(0.5deg); }
+  .lc-seal { right: 6px; bottom: -22px; width: 72px; height: 72px; }
+  .lc-big { padding: 28px 22px 32px; }
+  .lc-hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lc-paper { transition: none; }
+  .lc-paper::before, .lc-seal svg, .lc-stage:hover .lc-seal, .lc-hint i, .lc-pop { animation: none; }
+  .lc-mk { animation: none; background-size: 100% 70%; }
+  .lc-big .lc-mk, .lc-bigseal, .lc-bk { transition: none; }
+}

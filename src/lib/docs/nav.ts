@@ -14,6 +14,7 @@ export const navGroups: NavGroup[] = [
       { title: "Theming", href: "/docs/theming" },
       { title: "Changelog", href: "/docs/changelog" },
       { title: "Contribute", href: "/docs/contribute" },
+      { title: "License", href: "/docs/license" },
     ],
   },
   {
