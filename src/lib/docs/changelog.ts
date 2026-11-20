@@ -25,10 +25,27 @@ export type ChangeEntry = {
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "2026-11-18",
+    title: "Testimonial Bento",
+    tag: "Added",
+    description:
+      "A bento grid of testimonials that keeps changing. Quotes flow in word by word, one box at a time.",
+    points: [
+      "An optional heading and description above the boxes",
+      "A black hero card and four white cards, with a rating line and a portrait on each",
+      "The black card changes first, then the last, then the middle, then the rest",
+      "Each box runs on its own beat, and never two change at once",
+      "Hover a box to pause it, and it pauses off screen too",
+      "Follows dark mode and scales as one piece down to a phone",
+      "No animation library, just clsx and tailwind-merge",
+    ],
+    conclusion: "Quotes that move, without the noise.",
+  },
+  {
     date: "2026-11-14",
     title: "Isometric Cards",
     tag: "Added",
-    // images: ["/changelog/isometric-cards.png"],
+    images: ["/changelog/Build with Blocks, Not Boilerplate.png"],
     imageAlt: "Three cards, each with an isometric block that opens on hover",
     description:
       "Feature cards with a small isometric block on each. Hover one and a face of the block slides away while labelled lines draw out from it.",
@@ -47,7 +64,7 @@ export const changelog: ChangeEntry[] = [
     date: "2026-11-14",
     title: "License page",
     tag: "Docs",
-    // images: ["/changelog/license.png"],
+    images: ["/changelog/Open Source MIT License Showcase.png"],
     imageAlt: "The License page with the tilted MIT paper",
     description:
       "Veyl is MIT licensed, and the License page explains what that means in plain words, with the real text right beside it.",
@@ -66,7 +83,7 @@ export const changelog: ChangeEntry[] = [
     date: "2026-11-13",
     title: "Contribute page",
     tag: "Docs",
-    // images: ["/changelog/contribute.png"],
+    images: ["/changelog/Veyl Docs_ Help Shape Veyl.png"],
     imageAlt: "The Contribute page with its contribution-graph header",
     description: "A page that shows how to help, with a header that plays a small contribution-graph story.",
     points: [
