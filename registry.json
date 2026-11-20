@@ -295,6 +295,36 @@
           "target": "@components/veyl/isometric-cards/index.ts"
         }
       ]
+    },
+        {
+      "name": "testimonial-bento",
+      "type": "registry:block",
+      "title": "Testimonials Bento",
+      "description": "A bento grid of five testimonial cards whose quotes keep changing. The black card changes first, then the others, each on its own beat, with the words flowing in.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/testimonial-bento/testimonial-bento.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/testimonial-bento/testimonial-bento.tsx"
+        },
+        {
+          "path": "src/registry/veyl/testimonial-bento/testimonial-bento.css",
+          "type": "registry:component",
+          "target": "@components/veyl/testimonial-bento/testimonial-bento.css"
+        },
+        {
+          "path": "src/registry/veyl/testimonial-bento/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/testimonial-bento/index.ts"
+        }
+      ]
     }
   ]
 }

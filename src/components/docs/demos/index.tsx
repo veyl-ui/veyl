@@ -8,6 +8,7 @@ import { FaqDemo } from "./faq-demo";
 import { GlassCtaDemo } from "./glass-cta-demo";
 import { SpotlightFooterDemo } from "./spotlight-footer-demo";
 import { IsometricCardsDemo } from "./isometric-cards-demo";
+import { TestimonialBentoDemo } from "./testimonial-bento-demo";
 
 /** One live demo per component slug. A new component needs an entry here. */
 export const demos: Record<string, ReactNode> = {
@@ -20,4 +21,5 @@ export const demos: Record<string, ReactNode> = {
   "glass-cta": <GlassCtaDemo />,
   "spotlight-footer": <SpotlightFooterDemo />,
   "isometric-cards": <IsometricCardsDemo />,
+  "testimonial-bento": <TestimonialBentoDemo />,
 };

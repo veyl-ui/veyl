@@ -785,6 +785,83 @@ export default function Page() {
       "With reduced motion on, the block no longer leans and the faces change instantly.",
     ],
   },
+  {
+    slug: "testimonial-bento",
+    title: "Testimonial Bento",
+    description:
+      "A bento grid of five testimonial cards whose quotes keep changing. The black card changes first, then the others, each on its own beat, with the words flowing in.",
+    kind: "Block",
+    previewHeight: 800,
+    centered: false,
+    files: ["testimonial-bento.tsx", "testimonial-bento.css", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { TestimonialBento } from "@/components/veyl/testimonial-bento";
+
+const testimonials = [
+  {
+    name: "Maya Chen",
+    role: "Frontend Lead at Northwind",
+    quote: "The animations feel hand-built, not templated.",
+    avatar: "/people/maya.jpg",
+    rating: 5.0,
+  },
+  // five or more. Around 12 to 15 works well
+];
+
+export default function Page() {
+  return (
+    <TestimonialBento
+      title="Loved by people who ship"
+      description="Developers and designers use Veyl to build pages that feel hand-made."
+      testimonials={testimonials}
+    />
+  );
+}`,
+    props: [
+      {
+        title: "TestimonialBento",
+        rows: [
+          { name: "title", type: "ReactNode", description: "A heading above the boxes. Left out, no heading is shown." },
+          { name: "description", type: "ReactNode", description: "A line under the heading." },
+          { name: "testimonials", type: "BentoTestimonial[]", description: "Five or more. With more than five, the boxes swap them in and out. Around 12 to 15 works well." },
+          { name: "interval", type: "number", default: "9000", description: "Average time in milliseconds between changes in one box. Each box runs at its own speed." },
+          { name: "autoplay", type: "boolean", default: "true", description: "Change the quotes by itself." },
+          { name: "showRating", type: "boolean", default: "true", description: 'Show the "4.9 ★ Rating" line.' },
+          { name: "theme", type: '"light" | "dark"', description: "Force one look for this block. By default it follows the site's dark mode." },
+          { name: "className", type: "string", description: "Style the wrapper, or override the --tbn-* colour variables." },
+        ],
+      },
+      {
+        title: "BentoTestimonial",
+        rows: [
+          { name: "quote", type: "string", description: "What they said. Keep it under about 90 characters so it fits the small cards." },
+          { name: "name", type: "string", description: "Their name." },
+          { name: "role", type: "string", description: "Their job and company." },
+          { name: "avatar", type: "string", description: "A picture. Without one, or if it fails to load, their initial is shown." },
+          { name: "rating", type: "number", default: "4.9", description: 'The number in the "4.9 ★ Rating" line.' },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. No animation library." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      {
+        need: "Styles",
+        detail:
+          "testimonial-bento.css is imported by the component. Colours are --tbn-card, --tbn-hero (the black card), --tbn-quote, --tbn-name, --tbn-muted, --tbn-rate and --tbn-star.",
+      },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant." },
+    ],
+    notes: [
+      "The first time through, the black box changes first, then the last box, then one from the middle, then the other two. After that each box changes on its own beat, and never two at once.",
+      "A testimonial is never shown in two boxes at the same time.",
+      "Hover a box to pause it. Nothing changes while the block is off screen or the tab is hidden.",
+      "The block scales as one piece. Below 780px wide it becomes two columns, and below 600px one.",
+      "Screen readers get every testimonial in a hidden list, so none are missed while they rotate.",
+      "With reduced motion on, the first five stay still.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {
