@@ -862,6 +862,119 @@ export default function Page() {
       "With reduced motion on, the first five stay still.",
     ],
   },
+    /* ------------------------------------------------------------------ */
+  {
+    slug: "workflow-canvas",
+    title: "Workflow Canvas",
+    description:
+      "A canvas where the visitor builds a workflow by dragging wires between boxes. Each stretch of wire has its own colour, a beaded light runs along it, and the box it reaches glows and shimmers in the same colour. Boxes can be moved around.",
+    kind: "Block",
+    previewHeight: 760,
+    centered: false,
+    files: ["workflow-canvas.tsx", "workflow-canvas.css", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { WorkflowCanvas, type FlowNode, type FlowEdge, type FlowStep } from "@/components/veyl/workflow-canvas";
+
+// Keep these outside the component so they keep the same identity between renders.
+const nodes: FlowNode[] = [
+  { id: "trig", label: "New signup", x: 60, y: 200, icon: "webhook" },
+  { id: "look", label: "Find the account", x: 190, y: 108, icon: "db" },
+  { id: "mail", label: "Send welcome email", x: 330, y: 200, icon: "mail", hidden: true },
+];
+
+const edges: FlowEdge[] = [
+  { from: "trig", to: "look", color: "#e9b95e" },
+  { from: "look", to: "mail", color: "#5b9cff" },
+];
+
+const steps: FlowStep[] = [
+  // the visitor drags from "New signup" to "Find the account"
+  { type: "connect", from: "trig", to: "look" },
+  // then clicks +, and "Send welcome email" appears
+  { type: "reveal", nodes: ["mail"], at: { x: 270, y: 200 } },
+  // then drags the last wire
+  { type: "connect", from: "look", to: "mail" },
+];
+
+export default function Page() {
+  return (
+    <WorkflowCanvas
+      title="Every step, in plain sight"
+      description="Drag from one step to the next."
+      nodes={nodes}
+      edges={edges}
+      steps={steps}
+    />
+  );
+}`,
+    props: [
+      {
+        title: "WorkflowCanvas",
+        rows: [
+          { name: "title", type: "ReactNode", description: "A heading above the canvas. Left out, no heading is shown." },
+          { name: "description", type: "ReactNode", description: "A line under the heading." },
+          { name: "nodes", type: "FlowNode[]", description: "The boxes, with where each one starts." },
+          { name: "edges", type: "FlowEdge[]", description: "Every wire that can exist, and its colour." },
+          { name: "steps", type: "FlowStep[]", description: "The order things happen in. Left out, every wire is already drawn and the boxes can only be moved." },
+          { name: "width", type: "number", default: "1160", description: "Canvas width in canvas units. Everything scales to fit." },
+          { name: "height", type: "number", default: "440", description: "Canvas height in canvas units." },
+          { name: "colors", type: "string[]", description: "Colours that wires without their own colour take turns through." },
+          { name: "demo", type: "boolean", default: "true", description: "After about four idle seconds, a cursor shows how to make the next step." },
+          { name: "loop", type: "boolean", default: "true", description: "Start over after the last step." },
+          { name: "minScale", type: "number", default: "0.55", description: "The canvas never scales below this. It scrolls sideways instead." },
+          { name: "theme", type: '"light" | "dark"', description: "Force one look for this block. By default it follows the site's dark mode." },
+          { name: "className", type: "string", description: "Style the wrapper, or override the --wfc-* colour variables." },
+        ],
+      },
+      {
+        title: "FlowNode",
+        rows: [
+          { name: "id", type: "string", description: "A unique name, used by edges and steps." },
+          { name: "label", type: "string", description: "The name shown under the box." },
+          { name: "x, y", type: "number", description: "Where the centre of the box starts, in canvas units." },
+          { name: "icon", type: "FlowIconName | ReactNode", description: "One of the built-in icon names (webhook, db, bot, braces, chat, spark, book, globe, users, split, mail, bell, bolt), or your own element." },
+          { name: "kind", type: '"step" | "agent" | "tool"', default: '"step"', description: "A small square, a wide box that carries its label, or a round box that hangs under an agent." },
+          { name: "width", type: "number", description: "Box width. 54 by default, or 138 for an agent." },
+          { name: "tint", type: "string", description: "The icon colour." },
+          { name: "hidden", type: "boolean", description: "Start hidden. A reveal step shows it." },
+        ],
+      },
+      {
+        title: "FlowEdge",
+        rows: [
+          { name: "from, to", type: "string", description: "The ids of the two boxes." },
+          { name: "color", type: "string", description: "The colour of this wire, its beads' glow, and the glow of the box it reaches." },
+        ],
+      },
+      {
+        title: "FlowStep",
+        rows: [
+          { name: "type: \"connect\"", type: "{ from, to, then? }", description: "The visitor drags a wire from one box to another. The wires in then draw themselves afterwards." },
+          { name: "type: \"reveal\"", type: "{ nodes, at }", description: "A + button appears at the position at. Clicking it brings in the listed boxes." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. No animation library." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      {
+        need: "Styles",
+        detail:
+          "workflow-canvas.css is imported by the component. Colours are --wfc-canvas, --wfc-dot, --wfc-tile, --wfc-ink, --wfc-label, --wfc-muted, --wfc-port and --wfc-ring.",
+      },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant." },
+    ],
+    notes: [
+      "The visitor makes the first connection; the wires after it draw themselves up to a checkpoint, where the visitor makes the next one. Dropping a wire on the wrong box shakes it and snaps back.",
+      "Every box can be dragged around the canvas, and its wires follow.",
+      "A wire's colour is also the colour its boxes glow, with a shimmer that runs across them.",
+      "After about four idle seconds a cursor shows how to make the next step. Touching the canvas stops it.",
+      "Keyboard and screen reader users get a button for each connect step, and the + is a real button.",
+      "Below minScale the canvas scrolls sideways. With reduced motion on, everything is already connected and the boxes can still be moved.",
+      "Pass nodes, edges and steps from outside the component, or memoize them, so the story doesn't restart on every render.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {
