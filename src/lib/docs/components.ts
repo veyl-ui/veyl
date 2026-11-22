@@ -862,7 +862,7 @@ export default function Page() {
       "With reduced motion on, the first five stay still.",
     ],
   },
-    /* ------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------ */
   {
     slug: "workflow-canvas",
     title: "Workflow Canvas",
@@ -973,6 +973,81 @@ export default function Page() {
       "Keyboard and screen reader users get a button for each connect step, and the + is a real button.",
       "Below minScale the canvas scrolls sideways. With reduced motion on, everything is already connected and the boxes can still be moved.",
       "Pass nodes, edges and steps from outside the component, or memoize them, so the story doesn't restart on every render.",
+    ],
+  },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "pricing-section",
+    title: "Pricing Section",
+    description:
+      "A full pricing page on an architectural sheet: crosshair corners, hairline grid, blue light pulses running along the side lines, an annual-discount toggle, product tabs, three plan cards and a plan modal.",
+    kind: "Block",
+    previewHeight: 900,
+    centered: false,
+    files: ["pricing-section.tsx", "hero-decorations.tsx", "crosshair-mark.tsx", "plan-modal.tsx", "pricing-data.ts", "index.ts"],
+    dependencies: ["motion", "lucide-react", "clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { PricingSection, type SuiteInfo } from "@/components/veyl/pricing-section";
+
+const suites: Record<string, SuiteInfo> = {
+  Studio: {
+    id: "Studio",
+    label: "Studio",
+    subtitle: "Everything for creators",
+    tiers: [
+      { id: "free", name: "Free", badgeTone: "cool", monthlyPrice: 0, description: "Get started.", ctaLabel: "Get Started Free", ctaType: "free", features: ["One thing", "Another thing"] },
+      { id: "pro", name: "Pro", badgeTone: "neutral", monthlyPrice: 29, description: "For professionals.", ctaLabel: "Upgrade to Pro", ctaType: "upgrade", featured: true, features: ["Everything in Free", "More"] },
+      { id: "biz", name: "Business", badgeTone: "sky", monthlyPrice: 69, description: "For teams.", ctaLabel: "Contact Sales", ctaType: "sales", features: ["Everything in Pro", "Team tools"] },
+    ],
+  },
+  // more suites become more tabs
+};
+
+export default function Page() {
+  return (
+    <PricingSection
+      suites={suites}
+      title="Choose Pricing Plan"
+      description="Pick the plan that fits."
+    />
+  );
+}`,
+    props: [
+      {
+        title: "PricingSection",
+        rows: [
+          { name: "suites", type: "Record<string, SuiteInfo>", description: "One entry per tab, each with three plans. Defaults to a sample set." },
+          { name: "title", type: "string", default: '"Choose Pricing Plan"', description: "The big heading." },
+          { name: "description", type: "string", description: "The line under the heading." },
+          { name: "discount", type: "number", default: "0.4", description: "The annual discount, from 0 to 1. At 0 the discount button is hidden." },
+          { name: "className", type: "string", description: "Style the outer wrapper." },
+        ],
+      },
+      {
+        title: "PricingTier",
+        rows: [
+          { name: "id, name", type: "string", description: "A unique id and the plan's name." },
+          { name: "badgeTone", type: '"cool" | "neutral" | "sky"', description: "The tint of the name badge." },
+          { name: "monthlyPrice", type: "number", description: "Price per month. 0 shows $0 and no annual saving." },
+          { name: "description", type: "string", description: "One or two lines under the price." },
+          { name: "ctaLabel", type: "string", description: "The button text." },
+          { name: "ctaType", type: '"free" | "upgrade" | "sales"', description: "Decides the modal: a sales inquiry asks for a company name, the others do not." },
+          { name: "featured", type: "boolean", description: "The middle card: a dark button and a soft blue shade rising from the bottom." },
+          { name: "features", type: "string[]", description: "The checklist." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "motion and lucide-react, plus clsx and tailwind-merge." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      { need: "Fonts", detail: "Uses your font-sans and font-serif. The original pairs Nunito with Source Serif 4." },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant. The block is styled with Tailwind classes and needs no CSS file." },
+    ],
+    notes: [
+      "Three plans per tab is what the grid is built for.",
+      "The blue light pulses along the side lines are plain SVG paths animated with motion. With reduced motion on they become a short still line.",
+      "The plan buttons open a form modal that only shows a confirmation. Connect it to your own checkout or sales form in plan-modal.tsx.",
+      "The block fills the screen height, because it was built as a whole page. Put className=\"min-h-0\" on it to use it as a section.",
     ],
   },
 ];

@@ -24,6 +24,22 @@ export type ChangeEntry = {
 };
 
 export const changelog: ChangeEntry[] = [
+    {
+    date: "2026-11-22",
+    title: "Pricing Section",
+    tag: "Added",
+    imageAlt: "A three-plan pricing page with blue light running along the side lines",
+    description: "A full pricing page on an architectural sheet, with product tabs, an annual discount and a plan modal.",
+    points: [
+      "Crosshair corners and hairline grid, with blue light pulses along the side lines",
+      "An annual discount button that updates every price and shows the yearly saving",
+      "Tabs that switch between product suites",
+      "The middle card has a soft blue shade that rises from the bottom",
+      "A plan modal with validation",
+      "Light and dark mode",
+    ],
+    conclusion: "A pricing page that looks drawn, not templated.",
+  },
   {
     date: "2026-11-21",
     title: "Workflow Canvas",

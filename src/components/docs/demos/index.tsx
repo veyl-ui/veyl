@@ -10,6 +10,7 @@ import { SpotlightFooterDemo } from "./spotlight-footer-demo";
 import { IsometricCardsDemo } from "./isometric-cards-demo";
 import { TestimonialBentoDemo } from "./testimonial-bento-demo";
 import { WorkflowCanvasDemo } from "./workflow-canvas-demo";
+import { PricingSectionDemo } from "./pricing-section-demo";
 
 /** One live demo per component slug. A new component needs an entry here. */
 export const demos: Record<string, ReactNode> = {
@@ -24,4 +25,5 @@ export const demos: Record<string, ReactNode> = {
   "isometric-cards": <IsometricCardsDemo />,
   "testimonial-bento": <TestimonialBentoDemo />,
   "workflow-canvas": <WorkflowCanvasDemo />,
+  "pricing-section": <PricingSectionDemo />,
 };
