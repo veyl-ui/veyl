@@ -296,7 +296,7 @@
         }
       ]
     },
-        {
+    {
       "name": "testimonial-bento",
       "type": "registry:block",
       "title": "Testimonials Bento",
@@ -323,6 +323,36 @@
           "path": "src/registry/veyl/testimonial-bento/index.ts",
           "type": "registry:component",
           "target": "@components/veyl/testimonial-bento/index.ts"
+        }
+      ]
+    },
+    {
+      "name": "workflow-canvas",
+      "type": "registry:block",
+      "title": "Workflow Canvas",
+      "description": "A canvas where visitors drag wires between boxes. Each wire has its own colour, boxes glow in the colour of the wire that reaches them, and every box can be moved.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/workflow-canvas/workflow-canvas.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/workflow-canvas/workflow-canvas.tsx"
+        },
+        {
+          "path": "src/registry/veyl/workflow-canvas/workflow-canvas.css",
+          "type": "registry:component",
+          "target": "@components/veyl/workflow-canvas/workflow-canvas.css"
+        },
+        {
+          "path": "src/registry/veyl/workflow-canvas/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/workflow-canvas/index.ts"
         }
       ]
     }

@@ -25,6 +25,22 @@ export type ChangeEntry = {
 
 export const changelog: ChangeEntry[] = [
   {
+    date: "2026-11-21",
+    title: "Workflow Canvas",
+    tag: "Added",
+    imageAlt: "A workflow being connected with coloured wires",
+    description: "A canvas where visitors connect the steps of a workflow themselves, one coloured wire at a time.",
+    points: [
+      "Each stretch of wire has its own colour, with a beaded light running along it",
+      "The box a wire reaches glows and shimmers in the wire's colour",
+      "Drag any box around the canvas and its wires follow",
+      "Checkpoints: connect, watch the wires draw, click +, connect again",
+      "A cursor shows how after a few idle seconds",
+      "Light and dark mode, reduced motion, and keyboard buttons for each step",
+    ],
+    conclusion: "Show how a thing works by letting people build it.",
+  },
+  {
     date: "2026-11-18",
     title: "Testimonial Bento",
     tag: "Added",
