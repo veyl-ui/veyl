@@ -355,6 +355,53 @@
           "target": "@components/veyl/workflow-canvas/index.ts"
         }
       ]
+    },
+    {
+      "name": "pricing-section",
+      "type": "registry:block",
+      "title": "Pricing Section",
+      "description": "A pricing page on an architectural sheet with blue light running along the side lines, an annual discount, product tabs, three plan cards and a plan modal.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/pricing-section/pricing-section.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/pricing-section/pricing-section.tsx"
+        },
+        {
+          "path": "src/registry/veyl/pricing-section/hero-decorations.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/pricing-section/hero-decorations.tsx"
+        },
+        {
+          "path": "src/registry/veyl/pricing-section/crosshair-mark.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/pricing-section/crosshair-mark.tsx"
+        },
+        {
+          "path": "src/registry/veyl/pricing-section/plan-modal.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/pricing-section/plan-modal.tsx"
+        },
+        {
+          "path": "src/registry/veyl/pricing-section/pricing-data.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/pricing-section/pricing-data.ts"
+        },
+        {
+          "path": "src/registry/veyl/pricing-section/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/pricing-section/index.ts"
+        }
+      ]
     }
   ]
 }
