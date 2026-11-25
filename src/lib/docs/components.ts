@@ -1050,6 +1050,96 @@ export default function Page() {
       "The block fills the screen height, because it was built as a whole page. Put className=\"min-h-0\" on it to use it as a section.",
     ],
   },
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "features-section",
+    title: "Features Section",
+    description:
+      "A features block on a laptop-style screen. A floating dock below it swells under the cursor and switches between six screens. Each screen has its own layout and keeps moving on its own, with live things to click inside.",
+    kind: "Block",
+    previewHeight: 1180,
+    centered: false,
+    files: [
+      "features-section.tsx",
+      "mac-floating-dock.tsx",
+      "feature-bento-screen.tsx",
+      "feature-actions-screen.tsx",
+      "feature-privacy-screen.tsx",
+      "feature-search-screen.tsx",
+      "feature-calendar-screen.tsx",
+      "feature-digest-screen.tsx",
+      "features-data.ts",
+      "features-logic.ts",
+      "features-section.css",
+      "index.ts",
+    ],
+    dependencies: ["motion", "lucide-react", "clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { FeaturesSection } from "@/components/veyl/features-section";
+
+export default function Page() {
+  return (
+    <FeaturesSection
+      appName="Cadence"
+      menuItems={["File", "Transcripts", "Vault"]}
+      title="Every conversation, turned into clear action."
+      description="Switch through the six workspaces from the dock below."
+    />
+  );
+}
+
+// Swap one screen for your own:
+// <FeaturesSection screens={{ search: <MySearchScreen /> }} />
+//
+// The text, numbers and sample data all live in features-data.ts. Edit them there.`,
+    props: [
+      {
+        title: "FeaturesSection",
+        rows: [
+          { name: "features", type: "FeatureDefinition[]", description: "One dock icon and one screen each. Defaults to the six sample features in features-data.ts." },
+          { name: "icons", type: "Record<string, LucideIcon>", description: "The dock icon for each feature id. Ids you leave out use the built-in icon." },
+          { name: "screens", type: "Record<string, ReactNode>", description: "Your own screen for a feature id. It replaces the built-in screen with that id." },
+          { name: "badge", type: "ReactNode | null", description: "The pill above the heading. Clicking it moves to the next feature. null hides it." },
+          { name: "title", type: "ReactNode", description: "The big heading." },
+          { name: "description", type: "ReactNode", description: "The line under the heading." },
+          { name: "appName", type: "string", default: '"Cadence"', description: "The app name in the laptop's menu bar." },
+          { name: "menuItems", type: "string[]", default: '["File", "Transcripts", "Vault"]', description: "The small menu words next to the app name." },
+          { name: "deviceLabel", type: "string", default: '"MacBook Pro"', description: "The small label under the screen. An empty string hides it." },
+          { name: "intro", type: "boolean", default: "true", description: "Play the opening intro. The lid opens when the laptop first scrolls into view, then the screen lights up and the contents appear. Set false to show the laptop already open." },
+          { name: "autoTour", type: "boolean", default: "false", description: "Start with the automatic tour on. The visitor can turn it on and off from the menu bar." },
+          { name: "tourInterval", type: "number", default: "6500", description: "Time on each feature during the tour, in ms." },
+          { name: "activeId, onActiveChange", type: "string, (id) => void", description: "Make the block controlled: the id that is open, and a callback when it changes." },
+          { name: "className", type: "string", description: "Style the outer wrapper." },
+        ],
+      },
+      {
+        title: "FeatureDefinition",
+        rows: [
+          { name: "id", type: "string", description: "A unique id. The six built-in ids are capture, actions, privacy, search, calendar and digest." },
+          { name: "indexLabel, dockLabel", type: "string", description: "The number shown on the left, and the name shown above the dock icon." },
+          { name: "title, subtitle, description", type: "string", description: "The text on the left of the screen." },
+          { name: "layoutStyleLabel", type: "string", description: "The small label next to the number." },
+          { name: "additionalTitle, additionalValue, additionalHint", type: "string", description: "The small card at the bottom left." },
+          { name: "highlights", type: "{ label, detail }[]", description: "Two short rows under the paragraph." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "motion and lucide-react, plus clsx and tailwind-merge." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant. Almost everything is Tailwind classes." },
+      { need: "Styles", detail: "features-section.css is imported by the component. It only styles the thin scrollbars." },
+      { need: "Fonts", detail: "The headings use a font-display class. Define --font-display in your Tailwind theme, or they use your normal font. The original pairs Plus Jakarta Sans with DM Sans." },
+    ],
+    notes: [
+      "The six screens are separate files, so you can edit one without touching the others. Their sample text and data are in features-data.ts.",
+      "The privacy screen has its own wording written into it. Edit feature-privacy-screen.tsx to change it.",
+      "To add a seventh feature, add it to FEATURES, give it an icon with the icons prop, and pass a screen for it with the screens prop.",
+      "The block follows your site's dark mode. It has no theme switch of its own.",
+      "With reduced motion on, the animations hold still.",
+      "The lid opens once, when the laptop first scrolls into view. With reduced motion turned on, it is shown open and nothing animates. Pass intro={false} to skip the intro.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {

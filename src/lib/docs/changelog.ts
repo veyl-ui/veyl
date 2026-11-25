@@ -24,7 +24,22 @@ export type ChangeEntry = {
 };
 
 export const changelog: ChangeEntry[] = [
-    {
+  {
+    date: "2026-11-24",
+    title: "Features Section",
+    tag: "Added",
+    imageAlt: "A laptop-style screen showing a feature workspace, with a floating dock below it",
+    description: "A features block on a laptop-style screen, switched by a floating dock that swells under the cursor.",
+    points: [
+      "Six screens, each with its own layout",
+      "Live things to click inside every screen: keys, tasks, search, a data-flow diagram",
+      "A dock that swells under the mouse, with a name above each icon",
+      "An auto tour, plus previous and next buttons in the menu bar",
+      "Light and dark mode",
+    ],
+    conclusion: "A features section people want to click through.",
+  },
+  {
     date: "2026-11-22",
     title: "Pricing Section",
     tag: "Added",
