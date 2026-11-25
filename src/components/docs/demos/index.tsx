@@ -11,6 +11,7 @@ import { IsometricCardsDemo } from "./isometric-cards-demo";
 import { TestimonialBentoDemo } from "./testimonial-bento-demo";
 import { WorkflowCanvasDemo } from "./workflow-canvas-demo";
 import { PricingSectionDemo } from "./pricing-section-demo";
+import { FeaturesSectionDemo } from "./features-section-demo";
 
 /** One live demo per component slug. A new component needs an entry here. */
 export const demos: Record<string, ReactNode> = {
@@ -26,4 +27,5 @@ export const demos: Record<string, ReactNode> = {
   "testimonial-bento": <TestimonialBentoDemo />,
   "workflow-canvas": <WorkflowCanvasDemo />,
   "pricing-section": <PricingSectionDemo />,
+  "features-section": <FeaturesSectionDemo />,
 };

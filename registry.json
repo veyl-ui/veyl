@@ -402,6 +402,83 @@
           "target": "@components/veyl/pricing-section/index.ts"
         }
       ]
+    },
+    {
+      "name": "features-section",
+      "type": "registry:block",
+      "title": "Features Section",
+      "description": "A features block on a laptop-style screen, switched by a floating dock that swells under the cursor, with six animated screens.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/features-section/features-section.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/features-section.tsx"
+        },
+        {
+          "path": "src/registry/veyl/features-section/mac-floating-dock.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/mac-floating-dock.tsx"
+        },
+        {
+          "path": "src/registry/veyl/features-section/feature-bento-screen.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/feature-bento-screen.tsx"
+        },
+        {
+          "path": "src/registry/veyl/features-section/feature-actions-screen.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/feature-actions-screen.tsx"
+        },
+        {
+          "path": "src/registry/veyl/features-section/feature-privacy-screen.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/feature-privacy-screen.tsx"
+        },
+        {
+          "path": "src/registry/veyl/features-section/feature-search-screen.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/feature-search-screen.tsx"
+        },
+        {
+          "path": "src/registry/veyl/features-section/feature-calendar-screen.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/feature-calendar-screen.tsx"
+        },
+        {
+          "path": "src/registry/veyl/features-section/feature-digest-screen.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/feature-digest-screen.tsx"
+        },
+        {
+          "path": "src/registry/veyl/features-section/features-data.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/features-data.ts"
+        },
+        {
+          "path": "src/registry/veyl/features-section/features-logic.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/features-logic.ts"
+        },
+        {
+          "path": "src/registry/veyl/features-section/features-section.css",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/features-section.css"
+        },
+        {
+          "path": "src/registry/veyl/features-section/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/features-section/index.ts"
+        }
+      ]
     }
   ]
 }

@@ -66,7 +66,7 @@ export default async function ComponentPage({ params }: { params: Promise<Params
     >
       <PageTitle title={doc.title} description={doc.description} />
 
-      <ComponentPreview files={files} height={doc.previewHeight} centered={doc.centered}>
+      <ComponentPreview slug={doc.slug} files={files} height={doc.previewHeight} centered={doc.centered}>
         {demos[doc.slug]}
       </ComponentPreview>
 

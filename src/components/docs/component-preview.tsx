@@ -3,6 +3,7 @@
 import { type ReactNode, useState } from "react";
 import { cn } from "@/lib/utils";
 import { CopyButton } from "./copy-button";
+import { ExpandIcon } from "./icons";
 
 export type SourceFile = {
   /** File name, such as flip-words.tsx */
@@ -14,6 +15,8 @@ export type SourceFile = {
 };
 
 type Props = {
+  /** The component's slug. The full screen button opens /view/<slug>. */
+  slug: string;
   /** The live demo. */
   children: ReactNode;
   files: SourceFile[];
@@ -24,35 +27,55 @@ type Props = {
 };
 
 /** A framed live demo with a Preview / Code switch. */
-export function ComponentPreview({ children, files, height, centered = false }: Props) {
+export function ComponentPreview({ slug, children, files, height, centered = false }: Props) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
   const [fileIndex, setFileIndex] = useState(0);
   const file = files[fileIndex] ?? files[0];
 
   return (
     <div className="mt-8">
-      <div
-        role="tablist"
-        aria-label="Preview or code"
-        className="inline-flex rounded-md bg-muted p-0.5 text-sm"
-      >
-        {(["preview", "code"] as const).map((id) => (
-          <button
-            key={id}
-            role="tab"
-            type="button"
-            aria-selected={tab === id}
-            onClick={() => setTab(id)}
-            className={cn(
-              "rounded-[5px] px-3.5 py-1.5 font-medium capitalize transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-              tab === id
-                ? "bg-background text-foreground shadow-sm"
-                : "text-muted-foreground hover:text-foreground",
-            )}
+      <div className="flex items-center justify-between gap-3">
+        <div
+          role="tablist"
+          aria-label="Preview or code"
+          className="inline-flex rounded-md bg-muted p-0.5 text-sm"
+        >
+          {(["preview", "code"] as const).map((id) => (
+            <button
+              key={id}
+              role="tab"
+              type="button"
+              aria-selected={tab === id}
+              onClick={() => setTab(id)}
+              className={cn(
+                "rounded-[5px] px-3.5 py-1.5 font-medium capitalize transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
+                tab === id
+                  ? "bg-background text-foreground shadow-sm"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {id}
+            </button>
+          ))}
+        </div>
+
+        {tab === "preview" ? (
+          <a
+            href={`/view/${slug}`}
+            target="_blank"
+            rel="noopener"
+            aria-label="Open full screen preview in a new tab"
+            className="group relative grid h-9 w-9 place-items-center rounded-md border border-border bg-background text-muted-foreground shadow-sm transition-colors hover:bg-accent hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
           >
-            {id}
-          </button>
-        ))}
+            <ExpandIcon />
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute right-0 top-full z-10 mt-2 whitespace-nowrap rounded-md bg-foreground px-2 py-1 text-xs font-medium text-background opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+            >
+              Full screen
+            </span>
+          </a>
+        ) : null}
       </div>
 
       {tab === "preview" ? (
