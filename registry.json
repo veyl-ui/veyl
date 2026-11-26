@@ -516,6 +516,43 @@
           "target": "@components/veyl/team-section/index.ts"
         }
       ]
+    },
+    {
+      "name": "logo-cloud",
+      "type": "registry:block",
+      "title": "Logo Cloud",
+      "description": "A cloud of real brand logos that spring in on load, float on their own, and swell and turn into their brand colour near the pointer.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/logo-cloud/logo-cloud.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/logo-cloud/logo-cloud.tsx"
+        },
+        {
+          "path": "src/registry/veyl/logo-cloud/logo-field.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/logo-cloud/logo-field.tsx"
+        },
+        {
+          "path": "src/registry/veyl/logo-cloud/logo-data.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/logo-cloud/logo-data.ts"
+        },
+        {
+          "path": "src/registry/veyl/logo-cloud/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/logo-cloud/index.ts"
+        }
+      ]
     }
   ]
 }
