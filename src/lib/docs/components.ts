@@ -1199,6 +1199,59 @@ export default function Page() {
       "With reduced motion on, the drift stops and the cards hang straight. Dragging still works.",
     ],
   },
+  {
+    slug: "logo-cloud",
+    title: "Logo Cloud",
+    description:
+      "A cloud of real brand logos. On load they spring in from all sides, then float on their own. Move the pointer through them: nearby logos swell, drift away from it and turn into their brand colour.",
+    kind: "Block",
+    previewHeight: 760,
+    centered: false,
+    files: ["logo-cloud.tsx", "logo-field.tsx", "logo-data.ts", "index.ts"],
+    dependencies: ["motion", "lucide-react", "clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { LogoCloud } from "@/components/veyl/logo-cloud";
+
+export default function Page() {
+  return (
+    <LogoCloud
+      badge="Integrations"
+      title="Works with the tools you already use"
+      buttonLabel="Explore integrations"
+      buttonHref="/integrations"
+    />
+  );
+}`,
+    props: [
+      {
+        title: "LogoCloud",
+        rows: [
+          { name: "logos", type: "CloudLogo[]", default: "twenty well-known brands", description: "The logos. Each one is { name, color, path }: the name, the brand colour, and the logo as one SVG path in a 24 x 24 box." },
+          { name: "badge", type: "ReactNode | null", default: '"Integrations"', description: "The small pill above the heading. Pass null to hide it." },
+          { name: "title", type: "ReactNode", description: "The heading." },
+          { name: "description", type: "ReactNode", description: "The short line under the heading." },
+          { name: "buttonLabel", type: "ReactNode | null", default: '"Explore integrations"', description: "Text of the button. Pass null to hide it." },
+          { name: "buttonHref", type: "string", default: '"#"', description: "Where the button goes." },
+          { name: "hint", type: "string", default: '"Move your cursor through the cloud"', description: "Text under the cloud while no logo is close to the pointer." },
+          { name: "className", type: "string", description: "Extra classes for the section." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "motion and lucide-react, plus clsx and tailwind-merge." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant. Everything is Tailwind classes, there is no CSS file." },
+      { need: "Logos", detail: "The sample logos are the official shapes and colours from the Simple Icons set. They are trademarks of their owners, so only show brands you work with." },
+    ],
+    notes: [
+      "To use your own logos, give each one as an SVG path in a 24 x 24 box. Simple Icons (simpleicons.org) lists the path for most brands.",
+      "Black and near-black logos switch to white in dark mode, so they stay visible.",
+      "Three rows are made automatically: longer on the outside, shorter in the middle. With four logos or fewer they sit on one row.",
+      "On small screens the whole cloud scales down to fit, and it keeps working with touch.",
+      "The motion is one small physics loop, not CSS animations. Every tile floats with its own rhythm, and the push and swell are springs, so they never snap.",
+      "With reduced motion on, the logos appear in place and stay still. Hovering still turns them into their brand colour.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {
