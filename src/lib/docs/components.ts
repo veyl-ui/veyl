@@ -1140,6 +1140,65 @@ export default function Page() {
       "The lid opens once, when the laptop first scrolls into view. With reduced motion turned on, it is shown open and nothing animates. Pass intro={false} to skip the intro.",
     ],
   },
+  {
+    slug: "team-section",
+    title: "Team Section",
+    description:
+      "A string of hanging photo cards. Drag it and let go: it glides, and every card swings on its own pin. Point at the string and it dips under your cursor.",
+    kind: "Block",
+    previewHeight: 980,
+    centered: false,
+    files: ["team-section.tsx", "team-carousel.tsx", "team-data.ts", "index.ts"],
+    dependencies: ["motion", "lucide-react", "clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { TeamSection } from "@/components/veyl/team-section";
+
+export default function Page() {
+  return (
+    <TeamSection
+      badge="Our team"
+      title="The people behind the product"
+      buttonLabel="See open roles"
+      buttonHref="/careers"
+      members={[
+        { name: "Anders Holm", role: "Engineering", image: "/team/anders.jpg" },
+        { name: "Zuri Mensah", role: "Design", image: "/team/zuri.jpg" },
+        // add as many as you like
+      ]}
+    />
+  );
+}`,
+    props: [
+      {
+        title: "TeamSection",
+        rows: [
+          { name: "members", type: "TeamMember[]", default: "six sample people", description: "The people. Each one is { name, role, image }. The image is optional: without it a soft placeholder with initials is shown." },
+          { name: "badge", type: "ReactNode | null", default: '"Our team"', description: "The small pill above the heading. Pass null to hide it." },
+          { name: "title", type: "ReactNode", description: "The heading." },
+          { name: "description", type: "ReactNode", description: "The paragraph under the cards." },
+          { name: "buttonLabel", type: "ReactNode | null", default: '"See open roles"', description: "Text of the button. Pass null to hide it." },
+          { name: "buttonHref", type: "string", default: '"#"', description: "Where the button goes." },
+          { name: "speed", type: "number", default: "33", description: "Slow drift to the left, in px per second. It eases to a stop while the pointer is over the cards. 0 turns it off." },
+          { name: "draggable", type: "boolean", default: "true", description: "Let people drag the cards." },
+          { name: "className", type: "string", description: "Extra classes for the section." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "motion and lucide-react, plus clsx and tailwind-merge." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      { need: "Tailwind", detail: "v4, with the class-based dark variant. Everything is Tailwind classes, there is no CSS file." },
+      { need: "Photos", detail: "Portraits about 4:5, for example 450 x 560. The sample photos are in public/team/." },
+    ],
+    notes: [
+      "Nothing here is a plain CSS animation. A small physics loop moves every card each frame, using motion values from motion/react, so a flick keeps its speed and fades out smoothly instead of stopping dead.",
+      "The cards swing from their pins, each with its own stiffness, so they never move in step. How far they swing depends on how fast the strip is moving.",
+      "The string is drawn through every pin, so it dips with the cards when the pointer is close.",
+      "On touch screens vertical scrolling still works. Dragging sideways moves the cards.",
+      "Click the strip and use the left and right arrow keys to move it without a mouse.",
+      "With reduced motion on, the drift stops and the cards hang straight. Dragging still works.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {

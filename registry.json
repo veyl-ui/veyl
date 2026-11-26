@@ -479,6 +479,43 @@
           "target": "@components/veyl/features-section/index.ts"
         }
       ]
+    },
+    {
+      "name": "team-section",
+      "type": "registry:block",
+      "title": "Team Section",
+      "description": "A string of hanging photo cards. Drag it and let go: it glides, and every card swings on its own pin. Point at the string and it dips under your cursor.",
+      "dependencies": [
+        "motion",
+        "lucide-react",
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/team-section/team-section.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/team-section/team-section.tsx"
+        },
+        {
+          "path": "src/registry/veyl/team-section/team-carousel.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/team-section/team-carousel.tsx"
+        },
+        {
+          "path": "src/registry/veyl/team-section/team-data.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/team-section/team-data.ts"
+        },
+        {
+          "path": "src/registry/veyl/team-section/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/team-section/index.ts"
+        }
+      ]
     }
   ]
 }
