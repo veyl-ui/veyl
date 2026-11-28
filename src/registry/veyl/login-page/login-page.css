@@ -1,0 +1,820 @@
+/* Login page. Light by default, and it follows the .dark class on <html> like the rest of the site. */
+.lp {
+    --lp-bg: #fff;
+    --lp-ink: #0f172a;
+    --lp-mute: #64748b;
+    --lp-faint: #94a3b8;
+    --lp-line: #e5e7eb;
+    --lp-line-hover: #cbd5e1;
+    --lp-field: #fff;
+    --lp-soft: #f1f5f9;
+    --lp-btn: #111827;
+    --lp-btn-hover: #1e293b;
+    --lp-btn-text: #fff;
+    --lp-chip: linear-gradient(180deg, #232833, #111827);
+    --lp-ring: rgba(15, 23, 42, 0.06);
+    --lp-shadow: 15, 23, 42;
+    --lp-err: #c8322b;
+    --lp-ok: #0f7a4d;
+
+    container-type: inline-size;
+    width: 100%;
+    height: 100%;
+    min-height: 640px;
+    background: var(--lp-bg);
+    color: var(--lp-ink);
+}
+
+:is(.dark) .lp {
+    --lp-bg: #09090b;
+    --lp-ink: #f4f4f5;
+    --lp-mute: #a1a1aa;
+    --lp-faint: #71717a;
+    --lp-line: rgba(255, 255, 255, 0.12);
+    --lp-line-hover: rgba(255, 255, 255, 0.24);
+    --lp-field: #111114;
+    --lp-soft: rgba(255, 255, 255, 0.08);
+    --lp-btn: #fafafa;
+    --lp-btn-hover: #e4e4e7;
+    --lp-btn-text: #09090b;
+    --lp-chip: linear-gradient(180deg, #34343a, #1c1c20);
+    --lp-ring: rgba(255, 255, 255, 0.08);
+    --lp-shadow: 0, 0, 0;
+}
+
+.lp *,
+.lp *::before,
+.lp *::after {
+    box-sizing: border-box;
+}
+
+.lp-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+    height: 100%;
+    min-height: inherit;
+}
+
+@container (max-width: 900px) {
+    .lp-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lp-right {
+        display: none;
+    }
+}
+
+/* ---------- left ---------- */
+.lp-left {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 24px 72px;
+    overflow: auto;
+}
+
+.lp-card {
+    width: 100%;
+    max-width: 440px;
+}
+
+.lp-card>* {
+    animation: lp-rise 0.65s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.lp-card> :nth-child(2) {
+    animation-delay: 0.05s;
+}
+
+.lp-card> :nth-child(3) {
+    animation-delay: 0.1s;
+}
+
+.lp-card> :nth-child(4) {
+    animation-delay: 0.15s;
+}
+
+.lp-card> :nth-child(5) {
+    animation-delay: 0.2s;
+}
+
+.lp-card> :nth-child(6) {
+    animation-delay: 0.25s;
+}
+
+.lp-card> :nth-child(7) {
+    animation-delay: 0.3s;
+}
+
+@keyframes lp-rise {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.lp-logo {
+    display: block;
+    margin: 0 auto;
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #2d323d 0%, #181b22 55%, #101218 100%);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+        0 2px 4px rgba(15, 23, 42, 0.12),
+        0 16px 24px -10px rgba(15, 23, 42, 0.38),
+        0 30px 40px -22px rgba(15, 23, 42, 0.28);
+    transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+:is(.dark) .lp-logo {
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.16),
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 16px 30px -10px rgba(0, 0, 0, 0.7);
+}
+
+.lp-logo:hover {
+    transform: translateY(-2px) rotate(-2deg);
+}
+
+.lp-logo svg {
+    display: block;
+}
+
+.lp h1 {
+    margin: 30px 0 0;
+    text-align: center;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.lp-sub {
+    margin: 10px 0 0;
+    text-align: center;
+    font-size: 15px;
+    color: var(--lp-mute);
+}
+
+/* provider buttons, with a glow that follows the pointer */
+.lp-providers {
+    margin-top: 34px;
+    display: grid;
+    gap: 12px;
+}
+
+.lp-oauth {
+    --mx: 50%;
+    --my: 50%;
+    position: relative;
+    isolation: isolate;
+    height: 52px;
+    border-radius: 4px;
+    border: 1px solid var(--lp-line);
+    background: var(--lp-field);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--lp-ink);
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(var(--lp-shadow), 0.06);
+    transition: transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.3s, border-color 0.3s;
+}
+
+.lp-oauth:hover {
+    transform: translateY(-1px);
+    border-color: transparent;
+    box-shadow: 0 1px 2px rgba(var(--lp-shadow), 0.06), 0 8px 18px -8px rgba(var(--lp-shadow), 0.3);
+}
+
+.lp-oauth:active {
+    transform: translateY(0) scale(0.985);
+    box-shadow: 0 1px 2px rgba(var(--lp-shadow), 0.08);
+}
+
+.lp-oauth:focus-visible,
+.lp-go:focus-visible,
+.lp-chk input:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+.lp-oauth::before,
+.lp-oauth::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* the bright ring: a gradient that is only visible in the 1px border */
+.lp-oauth::before {
+    inset: -1px;
+    padding: 1px;
+    z-index: 2;
+    background: radial-gradient(110px circle at var(--mx) var(--my), #6366f1 0%, #a78bfa 35%, rgba(56, 189, 248, 0.55) 55%, transparent 75%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+}
+
+/* a very faint wash inside the button */
+.lp-oauth::after {
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(170px circle at var(--mx) var(--my), rgba(99, 102, 241, 0.1), transparent 70%);
+}
+
+.lp-oauth:hover::before,
+.lp-oauth:hover::after {
+    opacity: 1;
+}
+
+.lp-ico {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    translate: 0 -50%;
+    width: 34px;
+    height: 34px;
+    border-radius: 4px;
+    background: var(--lp-chip);
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.25);
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.lp-oauth:hover .lp-ico {
+    transform: scale(1.07) rotate(-4deg);
+}
+
+.lp-or {
+    margin: 26px 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--lp-mute);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+}
+
+.lp-or::before,
+.lp-or::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--lp-line);
+}
+
+.lp-form-only {
+    margin-top: 34px;
+}
+
+/* fields */
+.lp label {
+    display: block;
+    margin: 0 0 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.lp-field {
+    margin-bottom: 18px;
+}
+
+.lp-field:focus-within>label {
+    color: var(--lp-ink);
+}
+
+.lp-inp {
+    position: relative;
+}
+
+.lp input[type='email'],
+.lp input[type='password'],
+.lp input[type='text'] {
+    width: 100%;
+    height: 50px;
+    border-radius: 4px;
+    border: 1px solid var(--lp-line);
+    padding: 0 16px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--lp-ink);
+    background: var(--lp-field);
+    box-shadow: 0 1px 2px rgba(var(--lp-shadow), 0.05);
+    outline: none;
+    transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.lp-inp input {
+    padding-right: 52px;
+}
+
+.lp input::placeholder {
+    color: var(--lp-faint);
+    transition: opacity 0.2s, transform 0.25s;
+}
+
+.lp input:focus::placeholder {
+    opacity: 0.4;
+    transform: translateX(4px);
+}
+
+.lp input[type='email']:hover,
+.lp input[type='password']:hover,
+.lp input[type='text']:hover {
+    border-color: var(--lp-line-hover);
+    box-shadow: 0 2px 6px -2px rgba(var(--lp-shadow), 0.12);
+}
+
+.lp input[type='email']:focus,
+.lp input[type='password']:focus,
+.lp input[type='text']:focus {
+    border-color: var(--lp-mute);
+    box-shadow: 0 0 0 4px var(--lp-ring), 0 4px 12px -6px rgba(var(--lp-shadow), 0.2);
+}
+
+.lp-field.is-invalid input {
+    border-color: #f3b4b0;
+    box-shadow: 0 0 0 4px rgba(200, 50, 43, 0.08);
+}
+
+.lp-field.is-shaking input {
+    animation: lp-shake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+
+@keyframes lp-shake {
+
+    10%,
+    90% {
+        transform: translateX(-1px);
+    }
+
+    20%,
+    80% {
+        transform: translateX(2px);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translateX(-4px);
+    }
+
+    40%,
+    60% {
+        transform: translateX(4px);
+    }
+}
+
+.lp-eye {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    translate: 0 -50%;
+    width: 36px;
+    height: 36px;
+    border: 0;
+    background: none;
+    color: var(--lp-mute);
+    cursor: pointer;
+    border-radius: 4px;
+    display: grid;
+    place-items: center;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.lp-eye:hover {
+    background: var(--lp-soft);
+    color: var(--lp-ink);
+}
+
+.lp-eye:active {
+    transform: scale(0.9);
+}
+
+.lp-eye:focus-visible {
+    outline: 2px solid #6366f1;
+}
+
+.lp-eye svg {
+    transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.lp-eye:hover svg {
+    transform: scale(1.1);
+}
+
+.lp-err {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 0;
+    color: var(--lp-err);
+    font-size: 14px;
+    animation: lp-rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+:is(.dark) .lp-err {
+    color: #f87171;
+}
+
+.lp-err i {
+    width: 20px;
+    height: 20px;
+    flex: none;
+    border-radius: 50%;
+    background: var(--lp-err);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    font-style: normal;
+    box-shadow: 0 2px 6px rgba(200, 50, 43, 0.35);
+}
+
+/* remember me, forgot password */
+.lp-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 4px 0 20px;
+    font-size: 14px;
+}
+
+.lp .lp-chk {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    color: var(--lp-mute);
+    font-weight: 400;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.lp-chk:hover {
+    color: var(--lp-ink);
+}
+
+.lp-chk input {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    background: var(--lp-btn);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.2);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.lp-chk input:active {
+    transform: scale(0.88);
+}
+
+.lp-chk input:not(:checked) {
+    background: var(--lp-field);
+    border: 1px solid var(--lp-line-hover);
+    box-shadow: 0 1px 1px rgba(var(--lp-shadow), 0.04);
+}
+
+.lp-chk input:not(:checked):hover {
+    border-color: var(--lp-mute);
+}
+
+.lp-chk input:checked::after {
+    content: '';
+    width: 5px;
+    height: 10px;
+    border: solid var(--lp-btn-text);
+    border-width: 0 2px 2px 0;
+    rotate: 45deg;
+    translate: 0 -1px;
+    animation: lp-pop 0.3s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes lp-pop {
+    from {
+        scale: 0;
+    }
+
+    to {
+        scale: 1;
+    }
+}
+
+.lp-row a,
+.lp-help a,
+.lp-terms a {
+    color: var(--lp-ink);
+    font-weight: 500;
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.lp-row a:hover,
+.lp-help a:hover,
+.lp-terms a:hover {
+    background-size: 100% 1px;
+}
+
+/* main button */
+.lp-go {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 52px;
+    border-radius: 4px;
+    border: 0;
+    background: var(--lp-btn);
+    color: var(--lp-btn-text);
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.25), 0 6px 14px -6px rgba(17, 24, 39, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    transition: background 0.25s, transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.3s;
+}
+
+.lp-go:hover:not(:disabled) {
+    background: var(--lp-btn-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.25), 0 12px 22px -8px rgba(17, 24, 39, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+.lp-go:active:not(:disabled) {
+    transform: translateY(0) scale(0.99);
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.3);
+}
+
+.lp-go:disabled {
+    cursor: progress;
+}
+
+.lp-go::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.16) 50%, transparent 62%);
+    transform: translateX(-120%);
+    transition: transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+    pointer-events: none;
+}
+
+.lp-go:hover:not(:disabled)::after {
+    transform: translateX(120%);
+}
+
+.lp-go[data-state='success'],
+.lp-go[data-state='success']:hover:not(:disabled) {
+    background: var(--lp-ok);
+    color: #fff;
+}
+
+.lp-spin {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    opacity: 0.8;
+    animation: lp-spin 0.7s linear infinite;
+}
+
+@keyframes lp-spin {
+    to {
+        rotate: 360deg;
+    }
+}
+
+.lp-help {
+    margin: 26px 0 0;
+    text-align: center;
+    font-size: 15px;
+}
+
+.lp-terms {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    right: 0;
+    margin: 0;
+    padding: 0 20px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--lp-faint);
+}
+
+/* ---------- right: the plate ---------- */
+.lp-right {
+    padding: 12px 12px 12px 0;
+    min-height: 0;
+}
+
+.lp-stage {
+    position: relative;
+    height: 100%;
+    min-height: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #07070b;
+    isolation: isolate;
+    touch-action: none;
+    color: #fff;
+}
+
+:is(.dark) .lp-stage {
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 24px 70px -28px rgba(129, 140, 248, 0.35);
+}
+
+.lp-stage canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.lp-hud {
+    position: absolute;
+    left: 26px;
+    right: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    line-height: 1;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.42);
+    pointer-events: none;
+}
+
+.lp-hud-top {
+    top: 24px;
+}
+
+.lp-hud-bot {
+    bottom: 24px;
+    align-items: flex-end;
+}
+
+.lp-cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 62px;
+    padding: 0 24px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.lp-cap b {
+    display: block;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+}
+
+.lp-cap span {
+    display: block;
+    margin-top: 8px;
+    font-family: ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, monospace;
+    font-size: 12px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.06em;
+}
+
+.lp-snd {
+    position: absolute;
+    top: 16px;
+    right: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 34px;
+    padding: 0 12px 0 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    transition: background 0.2s;
+}
+
+.lp-snd:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.lp-snd:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.lp-snd[data-on='false'] {
+    animation: lp-ring 2.2s infinite;
+}
+
+@keyframes lp-ring {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 224, 170, 0.45);
+    }
+
+    70%,
+    100% {
+        box-shadow: 0 0 0 12px rgba(255, 224, 170, 0);
+    }
+}
+
+.lp-bars {
+    display: flex;
+    gap: 2px;
+    align-items: flex-end;
+    height: 12px;
+}
+
+.lp-bars i {
+    width: 2px;
+    height: 3px;
+    background: currentColor;
+    border-radius: 1px;
+}
+
+.lp-snd[data-on='true'] .lp-bars i {
+    animation: lp-eq 0.9s infinite ease-in-out;
+}
+
+.lp-snd[data-on='true'] .lp-bars i:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.lp-snd[data-on='true'] .lp-bars i:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.lp-snd[data-on='true'] .lp-bars i:nth-child(4) {
+    animation-delay: 0.45s;
+}
+
+@keyframes lp-eq {
+
+    0%,
+    100% {
+        height: 3px;
+    }
+
+    50% {
+        height: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .lp *,
+    .lp *::before,
+    .lp *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
