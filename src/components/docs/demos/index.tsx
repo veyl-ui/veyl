@@ -14,6 +14,7 @@ import { PricingSectionDemo } from "./pricing-section-demo";
 import { FeaturesSectionDemo } from "./features-section-demo";
 import { TeamSectionDemo } from "./team-section-demo";
 import { LogoCloudDemo } from "./logo-cloud-demo";
+import { LoginPageDemo } from "./login-page-demo";
 
 /** One live demo per component slug. A new component needs an entry here. */
 export const demos: Record<string, ReactNode> = {
@@ -32,4 +33,5 @@ export const demos: Record<string, ReactNode> = {
   "features-section": <FeaturesSectionDemo />,
   "team-section": <TeamSectionDemo />,
   "logo-cloud": <LogoCloudDemo />,
+  "login-page": <LoginPageDemo />,
 };

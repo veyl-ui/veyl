@@ -553,6 +553,46 @@
           "target": "@components/veyl/logo-cloud/index.ts"
         }
       ]
+    },
+    {
+      "name": "login-page",
+      "type": "registry:block",
+      "title": "Login Page",
+      "description": "A split-screen sign-in page. A form on the left and a vibrating sand plate on the right that reacts to typing, with live generated sound.",
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "src/registry/veyl/login-page/login-page.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/login-page/login-page.tsx"
+        },
+        {
+          "path": "src/registry/veyl/login-page/resonance-plate.tsx",
+          "type": "registry:component",
+          "target": "@components/veyl/login-page/resonance-plate.tsx"
+        },
+        {
+          "path": "src/registry/veyl/login-page/resonance-audio.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/login-page/resonance-audio.ts"
+        },
+        {
+          "path": "src/registry/veyl/login-page/login-page.css",
+          "type": "registry:component",
+          "target": "@components/veyl/login-page/login-page.css"
+        },
+        {
+          "path": "src/registry/veyl/login-page/index.ts",
+          "type": "registry:component",
+          "target": "@components/veyl/login-page/index.ts"
+        }
+      ]
     }
   ]
 }

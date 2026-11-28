@@ -1252,6 +1252,70 @@ export default function Page() {
       "With reduced motion on, the logos appear in place and stay still. Hovering still turns them into their brand colour.",
     ],
   },
+  {
+    slug: "login-page",
+    title: "Login Page",
+    description:
+      "A split-screen sign-in page. The form is on the left. On the right, sand on a vibrating plate forms a new pattern with every key you press, with a live sound to match. A wrong password shakes the sand and plays a clash, and a right one settles it into a clean shape with a chord.",
+    kind: "Block",
+    previewHeight: 800,
+    centered: false,
+    files: ["login-page.tsx", "resonance-plate.tsx", "resonance-audio.ts", "login-page.css", "index.ts"],
+    dependencies: ["clsx", "tailwind-merge"],
+    setup: [],
+    usage: `import { LoginPage } from "@/components/veyl/login-page";
+
+export default function Page() {
+  return (
+    <div className="h-svh">
+      <LoginPage
+        title="Welcome back"
+        onSubmit={async ({ email, password }) => {
+          const res = await fetch("/api/login", {
+            method: "POST",
+            body: JSON.stringify({ email, password }),
+          });
+          return res.ok; // false shows the "wrong password" state
+        }}
+      />
+    </div>
+  );
+}`,
+    props: [
+      {
+        title: "LoginPage",
+        rows: [
+          { name: "onSubmit", type: "(values) => boolean | void | Promise<boolean | void>", description: "Called when the form is sent with a valid email. Return false, or throw, if the details are wrong. Return true or nothing if they are right." },
+          { name: "title", type: "ReactNode", default: '"Welcome to AI Labs"', description: "The heading." },
+          { name: "description", type: "ReactNode", description: "The line under the heading." },
+          { name: "logo", type: "ReactNode | null", default: "a small face", description: "The mark above the heading. Pass null to hide it." },
+          { name: "providers", type: "LoginProvider[]", default: "Google and GitHub", description: "The 'Sign in with' buttons. Each one is { name, icon, onClick }. Pass [] to hide them and the OR line." },
+          { name: "submitLabel", type: "string", default: '"Continue"', description: "Text of the main button." },
+          { name: "passwordError", type: "string", default: '"Please enter the correct password"', description: "Shown when onSubmit says the details are wrong." },
+          { name: "emailError", type: "string", default: '"Please enter a valid email"', description: "Shown when the email does not look like an email." },
+          { name: "forgotHref / helpHref / termsHref / privacyHref", type: "string", default: '"#"', description: "Where the links go." },
+          { name: "sound", type: "boolean", default: "true", description: "Show the sound button. Sound is always off until the person turns it on." },
+          { name: "captions", type: "Partial<Record<'idle' | 'error' | 'success', { title, hint }>>", description: "The text under the plate for each state." },
+          { name: "plateLabel", type: "string", default: '"Resonance · sign-in"', description: "The small label at the top left of the plate." },
+          { name: "className", type: "string", description: "Extra classes for the page." },
+        ],
+      },
+    ],
+    requirements: [
+      { need: "Packages", detail: "clsx and tailwind-merge. There is no animation or icon library to install." },
+      { need: "Helper", detail: "cn() at @/lib/utils. See the installation page." },
+      { need: "Height", detail: "The page fills its parent, so give the parent a height, such as h-svh. It is never shorter than 640px." },
+      { need: "Styles", detail: "A small CSS file (login-page.css) comes with it and is imported by the component. Dark mode follows the .dark class." },
+    ],
+    notes: [
+      "The plate is a real Chladni figure. Thousands of grains slide away from the parts of a vibrating plate that move and collect on the parts that stay still, so each pattern is a different vibration.",
+      "What you type decides the pattern. The same email and password always make the same shape.",
+      "Browsers only allow sound after a click, so sound starts off. Once it is on, every key plays a note, and the cursor plays notes when dragged across the plate.",
+      "The sound is made live with the Web Audio API. There are no audio files.",
+      "With reduced motion on, the sand settles once and stays still, and the animations are switched off.",
+      "On screens narrower than 900px only the form is shown.",
+    ],
+  },
 ];
 
 export function getDoc(slug: string) {
